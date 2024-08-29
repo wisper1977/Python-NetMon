@@ -277,9 +277,12 @@ UI Updates:
 - Display results in a simple user interface.
 
 ## Future Plans
-- Code Restructure: Split the code into seperate files to improve proformance.
-- Detailed Device Views: Allow users to click on a device in the list to view more detailed information or statistics in a separate dialog or pane.
-- Input Validation: Rigorously validate all inputs, especially those that could affect network operations or subprocess invocations, to prevent injection attacks.
+- Detailed Device Views: Implement functionality for users to click on a device in the list and display detailed information or statistics in a separate dialog or pane.
+- Input Validation: Implement rigorous input validation to secure against potential injection attacks, particularly for inputs affecting network operations or subprocess invocations.
+- SNMP Integration: Introduce an SNMP check to verify that a device is operational before attempting to ping it.
+- SQLite Integration: Develop a more effective format for managing logs and syslogs using SQLite for improved storage and retrieval.
+- Simple FTP Server: Build a basic FTP server to facilitate file transfers within the network.
+- Penetration Testing: Conduct penetration testing to identify and address potential security vulnerabilities.
 
 ## Contributing
 
