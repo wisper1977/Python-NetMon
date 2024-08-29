@@ -1,0 +1,1511 @@
+2024-05-22 06:22:31,008 - INFO - Log file cleared successfully.
+2024-05-22 06:22:31,008 - INFO - Attempting to clear log text widget...
+2024-05-22 06:22:31,010 - INFO - Log text widget cleared successfully.
+2024-05-22 06:22:31,011 - INFO - Log file cleared by user.
+2024-05-22 06:22:34,394 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 06:22:34,420 - INFO - Result for device with IP 2.2.2.3: Offline, Ping Timeout
+2024-05-22 06:22:47,154 - INFO - Application ended
+2024-05-22 06:36:43,544 - DEBUG - Logger set for ConfigManager
+2024-05-22 06:36:43,544 - INFO - Application started
+2024-05-22 06:36:44,193 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 06:36:44,198 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 06:36:44,198 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 06:36:44,198 - INFO - Pinging device with IP: 2.2.2.3
+2024-05-22 06:36:46,396 - INFO - Log display auto-refreshed.
+2024-05-22 06:36:48,313 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 23.40 ms
+2024-05-22 06:36:49,778 - INFO - Application ended
+2024-05-22 06:36:55,321 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 06:36:55,322 - ERROR - Error processing ping result for device 2.2.2.2: main thread is not in main loop
+2024-05-22 06:36:55,336 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 06:36:55,337 - ERROR - Error processing ping result for device 2.2.2.3: main thread is not in main loop
+2024-05-22 06:36:56,410 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 06:36:56,410 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 06:36:56,410 - ERROR - exception calling callback for <Future at 0x21c126bc4d0 state=finished returned str>
+Traceback (most recent call last):
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 59, in process_ping_result
+    self.update_callback(ip, status)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 62, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 59, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 137, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 25, in <lambda>
+    future.add_done_callback(lambda x: self.process_ping_result(x, ip))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 63, in process_ping_result
+    self.update_callback(ip, "Error: Failed to process ping result")
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 62, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 59, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 137, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+2024-05-22 06:36:56,410 - ERROR - exception calling callback for <Future at 0x21c126bc1a0 state=finished returned str>
+Traceback (most recent call last):
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 59, in process_ping_result
+    self.update_callback(ip, status)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 62, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 59, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 137, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 25, in <lambda>
+    future.add_done_callback(lambda x: self.process_ping_result(x, ip))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 63, in process_ping_result
+    self.update_callback(ip, "Error: Failed to process ping result")
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 62, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 59, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 137, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+2024-05-22 06:36:56,995 - DEBUG - Logger set for ConfigManager
+2024-05-22 06:36:56,995 - INFO - Application started
+2024-05-22 06:36:57,632 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 06:36:57,632 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 06:36:57,632 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 06:36:57,632 - INFO - Pinging device with IP: 2.2.2.3
+2024-05-22 06:36:59,389 - INFO - Application ended
+2024-05-22 06:37:02,821 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 06:37:02,821 - ERROR - Error processing ping result for device 8.8.8.8: main thread is not in main loop
+2024-05-22 06:37:03,930 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 06:37:03,930 - ERROR - exception calling callback for <Future at 0x282e0e7cc50 state=finished returned CompletedProcess>
+Traceback (most recent call last):
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 59, in process_ping_result
+    self.update_callback(ip, status)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 62, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 59, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 137, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 25, in <lambda>
+    future.add_done_callback(lambda x: self.process_ping_result(x, ip))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 63, in process_ping_result
+    self.update_callback(ip, "Error: Failed to process ping result")
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 62, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 59, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 137, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+2024-05-22 06:37:08,758 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 06:37:08,758 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 06:37:08,758 - ERROR - Error processing ping result for device 2.2.2.2: main thread is not in main loop
+2024-05-22 06:37:08,758 - ERROR - Error processing ping result for device 2.2.2.3: main thread is not in main loop
+2024-05-22 06:37:09,852 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 06:37:09,852 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 06:37:09,852 - ERROR - exception calling callback for <Future at 0x282e13089b0 state=finished returned str>
+Traceback (most recent call last):
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 59, in process_ping_result
+    self.update_callback(ip, status)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 62, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 59, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 137, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 25, in <lambda>
+    future.add_done_callback(lambda x: self.process_ping_result(x, ip))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 63, in process_ping_result
+    self.update_callback(ip, "Error: Failed to process ping result")
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 62, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 59, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 137, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+2024-05-22 06:37:09,852 - ERROR - exception calling callback for <Future at 0x282e1308560 state=finished returned str>
+Traceback (most recent call last):
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 59, in process_ping_result
+    self.update_callback(ip, status)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 62, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 59, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 137, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 25, in <lambda>
+    future.add_done_callback(lambda x: self.process_ping_result(x, ip))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 63, in process_ping_result
+    self.update_callback(ip, "Error: Failed to process ping result")
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 62, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 59, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 137, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+2024-05-22 06:50:56,067 - DEBUG - Logger set for ConfigManager
+2024-05-22 06:50:56,068 - INFO - Application started
+2024-05-22 06:50:56,688 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 06:50:56,698 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 06:50:56,698 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 06:50:56,698 - INFO - Pinging device with IP: 2.2.2.3
+2024-05-22 06:51:00,835 - ERROR - Failed to update device status: Item 1 Internet Google 8.8.8.8 DNS {Online, Avg ping: 23.40 ms} {} not found
+2024-05-22 06:51:00,835 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 34.60 ms
+2024-05-22 06:51:06,757 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 06:51:06,779 - INFO - Result for device with IP 2.2.2.3: Offline, Ping Timeout
+2024-05-22 06:51:44,281 - INFO - SettingsManager initialized successfully
+2024-05-22 06:51:56,705 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 06:51:56,705 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 06:51:56,705 - INFO - Pinging device with IP: 2.2.2.3
+2024-05-22 06:52:00,875 - ERROR - Failed to update device status: Item 1 Internet Google 8.8.8.8 DNS {Online, Avg ping: 23.40 ms} {} not found
+2024-05-22 06:52:00,875 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 22.00 ms
+2024-05-22 06:52:06,844 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 06:52:06,850 - INFO - Result for device with IP 2.2.2.3: Offline, Ping Timeout
+2024-05-22 06:52:56,714 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 06:52:56,714 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 06:52:56,714 - INFO - Pinging device with IP: 2.2.2.3
+2024-05-22 06:53:00,801 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 22.60 ms
+2024-05-22 06:53:00,801 - ERROR - Failed to update device status: Item 1 Internet Google 8.8.8.8 DNS {Online, Avg ping: 23.40 ms} {} not found
+2024-05-22 06:53:06,747 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 06:53:06,747 - INFO - Result for device with IP 2.2.2.3: Offline, Ping Timeout
+2024-05-22 06:53:13,807 - INFO - Application ended
+2024-05-22 06:59:55,202 - DEBUG - Logger set for ConfigManager
+2024-05-22 06:59:55,202 - INFO - Application started
+2024-05-22 06:59:55,697 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 06:59:55,703 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 06:59:55,703 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 06:59:55,703 - INFO - Pinging device with IP: 2.2.2.3
+2024-05-22 06:59:59,887 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 27.20 ms
+2024-05-22 07:00:05,744 - INFO - Result for device with IP 2.2.2.3: Offline, Ping Timeout
+2024-05-22 07:00:05,744 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 07:00:51,022 - INFO - Application ended
+2024-05-22 07:05:59,909 - DEBUG - Logger set for ConfigManager
+2024-05-22 07:05:59,909 - INFO - Application started
+2024-05-22 07:06:00,592 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 07:06:00,598 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 07:06:00,598 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 07:06:00,598 - INFO - Pinging device with IP: 2.2.2.3
+2024-05-22 07:06:03,469 - INFO - Application ended
+2024-05-22 07:06:05,796 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 07:06:05,796 - ERROR - Error processing ping result for device 8.8.8.8: main thread is not in main loop
+2024-05-22 07:06:06,905 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 07:06:06,905 - ERROR - exception calling callback for <Future at 0x189c3946e10 state=finished returned CompletedProcess>
+Traceback (most recent call last):
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 59, in process_ping_result
+    self.update_callback(ip, status)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 64, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 61, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 120, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 25, in <lambda>
+    future.add_done_callback(lambda x: self.process_ping_result(x, ip))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 63, in process_ping_result
+    self.update_callback(ip, "Error: Failed to process ping result")
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 64, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 61, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 120, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+2024-05-22 07:06:11,740 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 07:06:11,740 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 07:06:11,740 - ERROR - Error processing ping result for device 2.2.2.3: main thread is not in main loop
+2024-05-22 07:06:11,740 - ERROR - Error processing ping result for device 2.2.2.2: main thread is not in main loop
+2024-05-22 07:06:12,857 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 07:06:12,857 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 07:06:12,857 - ERROR - exception calling callback for <Future at 0x189c3970260 state=finished returned str>
+Traceback (most recent call last):
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 59, in process_ping_result
+    self.update_callback(ip, status)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 64, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 61, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 120, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 25, in <lambda>
+    future.add_done_callback(lambda x: self.process_ping_result(x, ip))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 63, in process_ping_result
+    self.update_callback(ip, "Error: Failed to process ping result")
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 64, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 61, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 120, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+2024-05-22 07:06:12,857 - ERROR - exception calling callback for <Future at 0x189c3970560 state=finished returned str>
+Traceback (most recent call last):
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 59, in process_ping_result
+    self.update_callback(ip, status)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 64, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 61, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 120, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 25, in <lambda>
+    future.add_done_callback(lambda x: self.process_ping_result(x, ip))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 63, in process_ping_result
+    self.update_callback(ip, "Error: Failed to process ping result")
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 64, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 61, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 120, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+2024-05-22 07:06:22,596 - DEBUG - Logger set for ConfigManager
+2024-05-22 07:06:22,597 - INFO - Application started
+2024-05-22 07:06:23,208 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 07:06:23,208 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 07:06:23,208 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 07:06:23,208 - INFO - Pinging device with IP: 2.2.2.3
+2024-05-22 07:06:27,340 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 24.00 ms
+2024-05-22 07:06:33,251 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 07:06:33,251 - INFO - Result for device with IP 2.2.2.3: Offline, Ping Timeout
+2024-05-22 07:06:36,533 - INFO - Device with Key 2 acknowledged.
+2024-05-22 07:06:36,534 - INFO - Acknowledge status updated for device with Key: 2 in CSV file.
+2024-05-22 07:06:36,535 - INFO - Acknowledge status updated for device with Key: 2
+2024-05-22 07:06:38,911 - INFO - Device with Key 3 acknowledged.
+2024-05-22 07:06:38,915 - INFO - Acknowledge status updated for device with Key: 3 in CSV file.
+2024-05-22 07:06:38,917 - INFO - Acknowledge status updated for device with Key: 3
+2024-05-22 07:06:55,524 - INFO - Application ended
+2024-05-22 07:07:09,216 - DEBUG - Logger set for ConfigManager
+2024-05-22 07:07:09,216 - INFO - Application started
+2024-05-22 07:07:09,842 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 07:07:09,842 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 07:07:09,842 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 07:07:09,842 - INFO - Pinging device with IP: 2.2.2.3
+2024-05-22 07:07:13,988 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 23.00 ms
+2024-05-22 07:07:19,896 - INFO - Result for device with IP 2.2.2.3: Offline, Ping Timeout
+2024-05-22 07:07:20,786 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 07:07:23,488 - INFO - Device with Key 3 acknowledged.
+2024-05-22 07:07:23,491 - INFO - Acknowledge status updated for device with Key: 3 in CSV file.
+2024-05-22 07:07:23,491 - INFO - Acknowledge status updated for device with Key: 3
+2024-05-22 07:07:24,461 - INFO - Device with Key 2 acknowledged.
+2024-05-22 07:07:24,462 - INFO - Acknowledge status updated for device with Key: 2 in CSV file.
+2024-05-22 07:07:24,463 - INFO - Acknowledge status updated for device with Key: 2
+2024-05-22 07:07:34,983 - INFO - Application ended
+2024-05-22 07:10:35,636 - DEBUG - Logger set for ConfigManager
+2024-05-22 07:10:35,637 - INFO - Application started
+2024-05-22 07:10:36,349 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 07:10:36,356 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 07:10:36,356 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 07:10:36,356 - INFO - Pinging device with IP: 2.2.2.3
+2024-05-22 07:10:38,585 - INFO - Application ended
+2024-05-22 07:10:41,533 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 07:10:41,534 - ERROR - Error processing ping result for device 8.8.8.8: main thread is not in main loop
+2024-05-22 07:10:42,619 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 07:10:42,619 - ERROR - exception calling callback for <Future at 0x1eedb146720 state=finished returned CompletedProcess>
+Traceback (most recent call last):
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 59, in process_ping_result
+    self.update_callback(ip, status)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 64, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 61, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 120, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 25, in <lambda>
+    future.add_done_callback(lambda x: self.process_ping_result(x, ip))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 63, in process_ping_result
+    self.update_callback(ip, "Error: Failed to process ping result")
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 64, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 61, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 120, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+2024-05-22 07:10:47,468 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 07:10:47,468 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 07:10:47,468 - ERROR - Error processing ping result for device 2.2.2.2: main thread is not in main loop
+2024-05-22 07:10:47,468 - ERROR - Error processing ping result for device 2.2.2.3: main thread is not in main loop
+2024-05-22 07:10:48,552 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 07:10:48,552 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 07:10:48,553 - ERROR - exception calling callback for <Future at 0x1eedb1703b0 state=finished returned str>
+Traceback (most recent call last):
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 59, in process_ping_result
+    self.update_callback(ip, status)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 64, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 61, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 120, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 25, in <lambda>
+    future.add_done_callback(lambda x: self.process_ping_result(x, ip))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 63, in process_ping_result
+    self.update_callback(ip, "Error: Failed to process ping result")
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 64, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 61, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 120, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+2024-05-22 07:10:48,556 - ERROR - exception calling callback for <Future at 0x1eedb1706b0 state=finished returned str>
+Traceback (most recent call last):
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 59, in process_ping_result
+    self.update_callback(ip, status)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 64, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 61, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 120, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 25, in <lambda>
+    future.add_done_callback(lambda x: self.process_ping_result(x, ip))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 63, in process_ping_result
+    self.update_callback(ip, "Error: Failed to process ping result")
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 64, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 61, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 120, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+2024-05-22 07:12:37,117 - DEBUG - Logger set for ConfigManager
+2024-05-22 07:12:37,117 - INFO - Application started
+2024-05-22 07:12:37,626 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 07:12:37,631 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 07:12:37,631 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 07:12:37,631 - INFO - Pinging device with IP: 2.2.2.3
+2024-05-22 07:12:41,766 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 22.40 ms
+2024-05-22 07:12:47,668 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 07:12:47,975 - INFO - Result for device with IP 2.2.2.3: Offline, Ping Timeout
+2024-05-22 07:13:01,567 - INFO - Device with Key 2 acknowledged.
+2024-05-22 07:13:01,569 - INFO - Acknowledge status updated for device with Key: 2 in CSV file.
+2024-05-22 07:13:01,570 - INFO - Acknowledge status updated for device with Key: 2
+2024-05-22 07:13:02,576 - INFO - Device with Key 3 acknowledged.
+2024-05-22 07:13:02,579 - INFO - Acknowledge status updated for device with Key: 3 in CSV file.
+2024-05-22 07:13:02,580 - INFO - Acknowledge status updated for device with Key: 3
+2024-05-22 07:13:05,073 - INFO - Application ended
+2024-05-22 07:13:10,289 - DEBUG - Logger set for ConfigManager
+2024-05-22 07:13:10,289 - INFO - Application started
+2024-05-22 07:13:10,960 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 07:13:10,964 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 07:13:10,964 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 07:13:10,964 - INFO - Pinging device with IP: 2.2.2.3
+2024-05-22 07:13:15,094 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 29.40 ms
+2024-05-22 07:13:16,305 - INFO - Application ended
+2024-05-22 07:13:22,092 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 07:13:22,092 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 07:13:22,093 - ERROR - Error processing ping result for device 2.2.2.2: main thread is not in main loop
+2024-05-22 07:13:22,094 - ERROR - Error processing ping result for device 2.2.2.3: main thread is not in main loop
+2024-05-22 07:13:23,192 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 07:13:23,192 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 07:13:23,194 - ERROR - exception calling callback for <Future at 0x222016eccb0 state=finished returned str>
+Traceback (most recent call last):
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 59, in process_ping_result
+    self.update_callback(ip, status)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 64, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 61, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 109, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 25, in <lambda>
+    future.add_done_callback(lambda x: self.process_ping_result(x, ip))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 63, in process_ping_result
+    self.update_callback(ip, "Error: Failed to process ping result")
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 64, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 61, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 109, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+2024-05-22 07:13:23,194 - ERROR - exception calling callback for <Future at 0x222016ec9b0 state=finished returned str>
+Traceback (most recent call last):
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 59, in process_ping_result
+    self.update_callback(ip, status)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 64, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 61, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 109, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 25, in <lambda>
+    future.add_done_callback(lambda x: self.process_ping_result(x, ip))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 63, in process_ping_result
+    self.update_callback(ip, "Error: Failed to process ping result")
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 64, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 61, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 109, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+2024-05-22 07:16:55,453 - DEBUG - Logger set for ConfigManager
+2024-05-22 07:16:55,455 - INFO - Application started
+2024-05-22 07:16:55,925 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 07:16:55,934 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 07:16:55,934 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 07:16:55,935 - INFO - Pinging device with IP: 2.2.2.3
+2024-05-22 07:17:00,045 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 24.00 ms
+2024-05-22 07:17:00,060 - ERROR - Failed to update device status: 'ApplicationGUI' object has no attribute 'gui'
+2024-05-22 07:17:05,971 - INFO - Result for device with IP 2.2.2.3: Offline, Ping Timeout
+2024-05-22 07:17:05,971 - INFO - Device with IP 2.2.2.3 status set to 'Offline' and Acknowledge set to 'True'
+2024-05-22 07:17:05,974 - ERROR - Failed to update device status: 'ApplicationGUI' object has no attribute 'gui'
+2024-05-22 07:17:05,974 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 07:17:05,974 - INFO - Device with IP 2.2.2.2 status set to 'Offline' and Acknowledge set to 'True'
+2024-05-22 07:17:05,981 - ERROR - Failed to update device status: 'ApplicationGUI' object has no attribute 'gui'
+2024-05-22 07:17:26,092 - INFO - Application ended
+2024-05-22 07:17:45,869 - DEBUG - Logger set for ConfigManager
+2024-05-22 07:17:45,869 - INFO - Application started
+2024-05-22 07:17:46,514 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 07:17:46,515 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 07:17:46,515 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 07:17:46,515 - INFO - Pinging device with IP: 2.2.2.3
+2024-05-22 07:17:50,635 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 50.80 ms
+2024-05-22 07:17:50,652 - ERROR - Failed to update device status: 'ApplicationGUI' object has no attribute 'gui'
+2024-05-22 07:17:56,567 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 07:17:56,567 - INFO - Result for device with IP 2.2.2.3: Offline, Ping Timeout
+2024-05-22 07:17:56,567 - INFO - Device with IP 2.2.2.3 status set to 'Offline' and Acknowledge set to 'True'
+2024-05-22 07:17:56,570 - ERROR - Failed to update device status: 'ApplicationGUI' object has no attribute 'gui'
+2024-05-22 07:17:56,572 - INFO - Device with IP 2.2.2.2 status set to 'Offline' and Acknowledge set to 'True'
+2024-05-22 07:17:56,574 - ERROR - Failed to update device status: 'ApplicationGUI' object has no attribute 'gui'
+2024-05-22 07:18:06,219 - INFO - Application ended
+2024-05-22 07:18:30,066 - DEBUG - Logger set for ConfigManager
+2024-05-22 07:18:30,068 - INFO - Application started
+2024-05-22 07:18:30,721 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 07:18:30,721 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 07:18:30,721 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 07:18:30,721 - INFO - Pinging device with IP: 2.2.2.3
+2024-05-22 07:18:34,937 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 23.20 ms
+2024-05-22 07:18:40,758 - INFO - Result for device with IP 2.2.2.3: Offline, Ping Timeout
+2024-05-22 07:18:40,761 - INFO - Device with IP 2.2.2.3 status set to 'Offline' and Acknowledge set to 'True'
+2024-05-22 07:18:40,761 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 07:18:40,761 - INFO - Device with IP 2.2.2.2 status set to 'Offline' and Acknowledge set to 'True'
+2024-05-22 07:19:02,592 - INFO - Application ended
+2024-05-22 07:24:12,719 - DEBUG - Logger set for ConfigManager
+2024-05-22 07:24:12,720 - INFO - Application started
+2024-05-22 07:24:13,184 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 07:24:13,184 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 07:24:13,184 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 07:24:13,184 - INFO - Pinging device with IP: 2.2.2.3
+2024-05-22 07:24:17,312 - ERROR - Failed to update device status: 'ApplicationGUI' object has no attribute 'gui'
+2024-05-22 07:24:17,312 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 24.00 ms
+2024-05-22 07:24:23,248 - ERROR - Failed to update device status: 'ApplicationGUI' object has no attribute 'gui'
+2024-05-22 07:24:23,248 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 07:24:23,250 - INFO - Result for device with IP 2.2.2.3: Offline, Ping Timeout
+2024-05-22 07:24:23,250 - ERROR - Failed to update device status: 'ApplicationGUI' object has no attribute 'gui'
+2024-05-22 07:24:26,606 - INFO - Application ended
+2024-05-22 07:26:00,629 - DEBUG - Logger set for ConfigManager
+2024-05-22 07:26:00,632 - INFO - Application started
+2024-05-22 07:26:01,264 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 07:26:01,269 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 07:26:01,269 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 07:26:01,269 - INFO - Pinging device with IP: 2.2.2.3
+2024-05-22 07:26:05,388 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 22.20 ms
+2024-05-22 07:26:11,307 - INFO - Result for device with IP 2.2.2.3: Offline, Ping Timeout
+2024-05-22 07:26:11,307 - INFO - Device with IP 2.2.2.3 status set to 'Offline' and Acknowledge set to 'True'
+2024-05-22 07:26:11,307 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 07:26:11,307 - INFO - Device with IP 2.2.2.2 status set to 'Offline' and Acknowledge set to 'True'
+2024-05-22 07:26:44,374 - INFO - Application ended
+2024-05-22 07:38:10,085 - DEBUG - Logger set for ConfigManager
+2024-05-22 07:38:10,086 - INFO - Application started
+2024-05-22 07:38:10,731 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 07:38:10,732 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 07:38:10,732 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 07:38:10,732 - INFO - Pinging device with IP: 2.2.2.3
+2024-05-22 07:38:14,846 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 23.40 ms
+2024-05-22 07:38:20,782 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 07:38:20,782 - INFO - Device with IP 2.2.2.2 status set to 'Offline' and Acknowledge set to 'True'
+2024-05-22 07:38:20,796 - INFO - Result for device with IP 2.2.2.3: Offline, Ping Timeout
+2024-05-22 07:38:20,806 - INFO - Device with IP 2.2.2.3 status set to 'Offline' and Acknowledge set to 'True'
+2024-05-22 07:38:31,558 - INFO - Device with Key: 3 deleted.
+2024-05-22 07:38:31,558 - DEBUG - Device file updated successfully.
+2024-05-22 07:38:35,592 - INFO - Application ended
+2024-05-22 07:40:29,809 - DEBUG - Logger set for ConfigManager
+2024-05-22 07:40:29,809 - INFO - Application started
+2024-05-22 07:40:29,909 - ERROR - Failed to create menu: 'ApplicationGUI' object has no attribute 'delete_device'
+2024-05-22 07:40:29,910 - ERROR - Failed to initialize GUI: 'ApplicationGUI' object has no attribute 'delete_device'
+2024-05-22 07:40:29,911 - ERROR - Failed to initialize application: 'ApplicationGUI' object has no attribute 'delete_device'
+2024-05-22 07:41:53,589 - DEBUG - Logger set for ConfigManager
+2024-05-22 07:41:53,590 - INFO - Application started
+2024-05-22 07:41:54,107 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 07:41:54,120 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 07:41:54,120 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 07:41:58,291 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 33.00 ms
+2024-05-22 07:41:58,652 - ERROR - Failed to edit device: 'DeviceManager' object has no attribute 'tree'
+2024-05-22 07:42:04,158 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 07:42:04,159 - INFO - Device with IP 2.2.2.2 status set to 'Offline' and Acknowledge set to 'True'
+2024-05-22 07:42:06,689 - INFO - Application ended
+2024-05-22 07:45:17,248 - DEBUG - Logger set for ConfigManager
+2024-05-22 07:45:17,252 - INFO - Application started
+2024-05-22 07:45:17,883 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 07:45:17,891 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 07:45:17,891 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 07:45:21,980 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 26.00 ms
+2024-05-22 07:45:25,958 - INFO - Application ended
+2024-05-22 07:45:28,986 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 07:45:28,988 - ERROR - Error processing ping result for device 2.2.2.2: main thread is not in main loop
+2024-05-22 07:45:30,087 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 07:45:30,087 - ERROR - exception calling callback for <Future at 0x21524c9bce0 state=finished returned str>
+Traceback (most recent call last):
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 59, in process_ping_result
+    self.update_callback(ip, status)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 74, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 71, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 93, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 25, in <lambda>
+    future.add_done_callback(lambda x: self.process_ping_result(x, ip))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 63, in process_ping_result
+    self.update_callback(ip, "Error: Failed to process ping result")
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 74, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 71, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 93, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+2024-05-22 08:01:04,384 - DEBUG - Logger set for ConfigManager
+2024-05-22 08:01:04,384 - INFO - Application started
+2024-05-22 08:01:04,543 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 08:01:04,550 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 08:01:04,550 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 08:01:08,731 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 42.40 ms
+2024-05-22 08:01:14,605 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 08:01:14,605 - INFO - Device with IP 2.2.2.2 status set to 'Offline' and Acknowledge set to 'True'
+2024-05-22 08:01:26,310 - INFO - Application ended
+2024-05-22 08:02:36,492 - DEBUG - Logger set for ConfigManager
+2024-05-22 08:02:36,494 - INFO - Application started
+2024-05-22 08:02:36,620 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 08:02:36,625 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 08:02:36,625 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 08:02:40,757 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 26.00 ms
+2024-05-22 08:02:46,658 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 08:02:46,658 - INFO - Device with IP 2.2.2.2 status set to 'Offline' and Acknowledge set to 'True'
+2024-05-22 08:03:36,628 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 08:03:36,628 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 08:03:40,743 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 39.60 ms
+2024-05-22 08:03:46,662 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 08:03:46,662 - INFO - Device with IP 2.2.2.2 status set to 'Offline' and Acknowledge set to 'True'
+2024-05-22 08:04:36,636 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 08:04:36,636 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 08:04:40,741 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 28.80 ms
+2024-05-22 08:04:46,657 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 08:04:46,658 - INFO - Device with IP 2.2.2.2 status set to 'Offline' and Acknowledge set to 'True'
+2024-05-22 08:05:36,652 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 08:05:36,652 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 08:05:46,670 - INFO - Result for device with IP 8.8.8.8: Offline, Ping Timeout
+2024-05-22 08:05:46,670 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 08:05:47,587 - INFO - Device with IP 2.2.2.2 status set to 'Offline' and Acknowledge set to 'True'
+2024-05-22 08:06:36,654 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 08:06:36,655 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 08:06:40,777 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 34.40 ms
+2024-05-22 08:06:46,671 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 08:06:46,672 - INFO - Device with IP 2.2.2.2 status set to 'Offline' and Acknowledge set to 'True'
+2024-05-22 08:07:36,658 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 08:07:36,658 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 08:07:40,766 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 26.60 ms
+2024-05-22 08:07:46,662 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 08:07:46,662 - INFO - Device with IP 2.2.2.2 status set to 'Offline' and Acknowledge set to 'True'
+2024-05-22 08:08:36,662 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 08:08:36,662 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 08:08:40,772 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 41.00 ms
+2024-05-22 08:08:46,681 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 08:08:46,681 - INFO - Device with IP 2.2.2.2 status set to 'Offline' and Acknowledge set to 'True'
+2024-05-22 08:09:36,664 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 08:09:36,664 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 08:09:40,807 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 44.20 ms
+2024-05-22 08:09:46,682 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 08:09:46,682 - INFO - Device with IP 2.2.2.2 status set to 'Offline' and Acknowledge set to 'True'
+2024-05-22 08:10:26,330 - INFO - Application ended
+2024-05-22 08:10:27,041 - DEBUG - Logger set for ConfigManager
+2024-05-22 08:10:27,042 - INFO - Application started
+2024-05-22 08:10:27,823 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 08:10:27,831 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 08:10:27,831 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 08:10:31,969 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 35.00 ms
+2024-05-22 08:10:33,051 - ERROR - Failed to edit device: 'NoneType' object has no attribute 'tree'
+2024-05-22 08:10:35,048 - INFO - Application ended
+2024-05-22 08:10:38,940 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 08:10:38,941 - ERROR - Error processing ping result for device 2.2.2.2: main thread is not in main loop
+2024-05-22 08:10:40,003 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 08:10:40,003 - ERROR - exception calling callback for <Future at 0x261fd09bda0 state=finished returned str>
+Traceback (most recent call last):
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 59, in process_ping_result
+    self.update_callback(ip, status)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 74, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 71, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 93, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 25, in <lambda>
+    future.add_done_callback(lambda x: self.process_ping_result(x, ip))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 63, in process_ping_result
+    self.update_callback(ip, "Error: Failed to process ping result")
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 74, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 71, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 93, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+2024-05-22 08:53:03,274 - DEBUG - Logger set for ConfigManager
+2024-05-22 08:53:03,274 - INFO - Application started
+2024-05-22 08:53:03,415 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 08:53:03,415 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 08:53:03,415 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 08:53:07,523 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 27.40 ms
+2024-05-22 08:53:11,169 - INFO - Application ended
+2024-05-22 08:53:14,552 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 08:53:14,552 - ERROR - Error processing ping result for device 2.2.2.2: main thread is not in main loop
+2024-05-22 08:53:15,643 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 08:53:15,644 - ERROR - exception calling callback for <Future at 0x2ee68b106b0 state=finished returned str>
+Traceback (most recent call last):
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 59, in process_ping_result
+    self.update_callback(ip, status)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 74, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 71, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 93, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 25, in <lambda>
+    future.add_done_callback(lambda x: self.process_ping_result(x, ip))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 63, in process_ping_result
+    self.update_callback(ip, "Error: Failed to process ping result")
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 74, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 71, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 93, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+2024-05-22 08:54:09,958 - DEBUG - Logger set for ConfigManager
+2024-05-22 08:54:09,961 - INFO - Application started
+2024-05-22 08:54:10,090 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 08:54:10,094 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 08:54:10,095 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 08:54:14,301 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 29.00 ms
+2024-05-22 08:54:16,822 - INFO - Application ended
+2024-05-22 08:54:21,270 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 08:54:21,272 - ERROR - Error processing ping result for device 2.2.2.2: main thread is not in main loop
+2024-05-22 08:54:22,325 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 08:54:22,325 - ERROR - exception calling callback for <Future at 0x1c1a0357fb0 state=finished returned str>
+Traceback (most recent call last):
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 59, in process_ping_result
+    self.update_callback(ip, status)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 74, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 71, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 93, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 25, in <lambda>
+    future.add_done_callback(lambda x: self.process_ping_result(x, ip))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 63, in process_ping_result
+    self.update_callback(ip, "Error: Failed to process ping result")
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 74, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 71, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 93, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+2024-05-22 08:57:03,812 - DEBUG - Logger set for ConfigManager
+2024-05-22 08:57:03,812 - INFO - Application started
+2024-05-22 08:57:03,931 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 08:57:03,934 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 08:57:03,935 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 08:57:08,062 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 31.40 ms
+2024-05-22 08:57:13,984 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 08:57:13,991 - INFO - Device with IP 2.2.2.2 status set to 'Offline' and Acknowledge set to 'True'
+2024-05-22 08:57:56,900 - INFO - DeviceDialog initialized successfully
+2024-05-22 08:57:56,900 - ERROR - Failed to generate new key: 'NoneType' object is not iterable
+2024-05-22 08:57:56,910 - DEBUG - Device file updated successfully.
+2024-05-22 08:58:03,947 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 08:58:03,947 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 08:58:03,947 - INFO - Pinging device with IP: 2.2.2.1
+2024-05-22 08:58:04,816 - ERROR - Failed to delete device: 'DeviceManager' object has no attribute 'delete_device'
+2024-05-22 08:58:08,040 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 26.40 ms
+2024-05-22 08:58:12,165 - INFO - Application ended
+2024-05-22 08:58:15,016 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 08:58:15,016 - ERROR - Error processing ping result for device 2.2.2.2: main thread is not in main loop
+2024-05-22 08:58:15,032 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 08:58:15,033 - ERROR - Error processing ping result for device 2.2.2.1: main thread is not in main loop
+2024-05-22 08:58:16,088 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 08:58:16,088 - ERROR - exception calling callback for <Future at 0x26d9f0c4d10 state=finished returned str>
+Traceback (most recent call last):
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 59, in process_ping_result
+    self.update_callback(ip, status)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 74, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 71, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 93, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 25, in <lambda>
+    future.add_done_callback(lambda x: self.process_ping_result(x, ip))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 63, in process_ping_result
+    self.update_callback(ip, "Error: Failed to process ping result")
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 74, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 71, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 93, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+2024-05-22 08:58:16,095 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 08:58:16,097 - ERROR - exception calling callback for <Future at 0x26d9f0c4b00 state=finished returned str>
+Traceback (most recent call last):
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 59, in process_ping_result
+    self.update_callback(ip, status)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 74, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 71, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 93, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 25, in <lambda>
+    future.add_done_callback(lambda x: self.process_ping_result(x, ip))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 63, in process_ping_result
+    self.update_callback(ip, "Error: Failed to process ping result")
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 74, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 71, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 93, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+2024-05-22 08:59:26,670 - DEBUG - Logger set for ConfigManager
+2024-05-22 08:59:26,670 - INFO - Application started
+2024-05-22 08:59:27,347 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 08:59:27,364 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 08:59:27,364 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 08:59:27,364 - INFO - Pinging device with IP: 2.2.2.1
+2024-05-22 08:59:31,473 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 25.80 ms
+2024-05-22 08:59:34,726 - INFO - Application ended
+2024-05-22 08:59:38,476 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 08:59:38,476 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 08:59:38,477 - ERROR - Error processing ping result for device 2.2.2.1: main thread is not in main loop
+2024-05-22 08:59:38,477 - ERROR - Error processing ping result for device 2.2.2.2: main thread is not in main loop
+2024-05-22 08:59:39,562 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 08:59:39,563 - ERROR - exception calling callback for <Future at 0x1e68f5700b0 state=finished returned str>
+Traceback (most recent call last):
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 59, in process_ping_result
+    self.update_callback(ip, status)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 74, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 71, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 93, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 25, in <lambda>
+    future.add_done_callback(lambda x: self.process_ping_result(x, ip))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 63, in process_ping_result
+    self.update_callback(ip, "Error: Failed to process ping result")
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 74, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 71, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 93, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+2024-05-22 08:59:39,577 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 08:59:39,579 - ERROR - exception calling callback for <Future at 0x1e68f5703b0 state=finished returned str>
+Traceback (most recent call last):
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 59, in process_ping_result
+    self.update_callback(ip, status)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 74, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 71, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 93, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 25, in <lambda>
+    future.add_done_callback(lambda x: self.process_ping_result(x, ip))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 63, in process_ping_result
+    self.update_callback(ip, "Error: Failed to process ping result")
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 74, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 71, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 93, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+2024-05-22 09:07:34,381 - DEBUG - Logger set for ConfigManager
+2024-05-22 09:07:34,388 - INFO - Application started
+2024-05-22 09:07:34,513 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 09:07:34,517 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 09:07:34,517 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 09:07:34,518 - INFO - Pinging device with IP: 2.2.2.1
+2024-05-22 09:07:38,659 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 27.80 ms
+2024-05-22 09:07:44,558 - INFO - Result for device with IP 2.2.2.1: Offline, Ping Timeout
+2024-05-22 09:07:44,558 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 09:07:44,561 - INFO - Device with IP 2.2.2.2 status set to 'Offline' and Acknowledge set to 'True'
+2024-05-22 09:08:06,979 - INFO - Application ended
+2024-05-22 09:10:23,888 - DEBUG - Logger set for ConfigManager
+2024-05-22 09:10:23,888 - INFO - Application started
+2024-05-22 09:10:24,065 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 09:10:24,065 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 09:10:24,065 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 09:10:24,065 - INFO - Pinging device with IP: 2.2.2.1
+2024-05-22 09:10:28,194 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 29.20 ms
+2024-05-22 09:10:31,659 - ERROR - Failed to delete device: No device found with key: 3
+2024-05-22 09:10:31,659 - ERROR - Failed to delete device: No device found with key: 3
+2024-05-22 09:10:34,115 - INFO - Result for device with IP 2.2.2.1: Offline, Ping Timeout
+2024-05-22 09:10:34,993 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 09:10:35,006 - INFO - Device with IP 2.2.2.2 status set to 'Offline' and Acknowledge set to 'True'
+2024-05-22 09:10:41,985 - INFO - Application ended
+2024-05-22 09:11:56,655 - DEBUG - Logger set for ConfigManager
+2024-05-22 09:11:56,655 - INFO - Application started
+2024-05-22 09:11:57,164 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 09:11:57,164 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 09:11:57,164 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 09:11:57,164 - INFO - Pinging device with IP: 2.2.2.1
+2024-05-22 09:12:01,356 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 46.80 ms
+2024-05-22 09:12:02,496 - INFO - Device with Key: 3 deleted.
+2024-05-22 09:12:02,502 - DEBUG - Device file updated successfully.
+2024-05-22 09:12:05,481 - INFO - Application ended
+2024-05-22 09:12:08,337 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 09:12:08,337 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 09:12:08,337 - ERROR - Error processing ping result for device 2.2.2.1: main thread is not in main loop
+2024-05-22 09:12:08,337 - ERROR - Error processing ping result for device 2.2.2.2: main thread is not in main loop
+2024-05-22 09:12:09,427 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 09:12:09,427 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 09:12:09,427 - ERROR - exception calling callback for <Future at 0x296634bc680 state=finished returned str>
+Traceback (most recent call last):
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 59, in process_ping_result
+    self.update_callback(ip, status)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 74, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 71, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 93, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 25, in <lambda>
+    future.add_done_callback(lambda x: self.process_ping_result(x, ip))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 63, in process_ping_result
+    self.update_callback(ip, "Error: Failed to process ping result")
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 74, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 71, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 93, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+2024-05-22 09:12:09,427 - ERROR - exception calling callback for <Future at 0x296634bc380 state=finished returned str>
+Traceback (most recent call last):
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 59, in process_ping_result
+    self.update_callback(ip, status)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 74, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 71, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 93, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 25, in <lambda>
+    future.add_done_callback(lambda x: self.process_ping_result(x, ip))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 63, in process_ping_result
+    self.update_callback(ip, "Error: Failed to process ping result")
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 74, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 71, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 93, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+2024-05-22 09:12:53,522 - DEBUG - Logger set for ConfigManager
+2024-05-22 09:12:53,522 - INFO - Application started
+2024-05-22 09:12:54,160 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 09:12:54,164 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 09:12:54,164 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 09:12:58,258 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 25.40 ms
+2024-05-22 09:13:04,227 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 09:13:04,227 - INFO - Device with IP 2.2.2.2 status set to 'Offline' and Acknowledge set to 'True'
+2024-05-22 09:13:08,498 - INFO - DeviceDialog initialized successfully
+2024-05-22 09:13:08,498 - ERROR - Failed to generate new key: 'NoneType' object is not iterable
+2024-05-22 09:13:08,498 - DEBUG - Device file updated successfully.
+2024-05-22 09:13:17,897 - INFO - SettingsManager initialized successfully
+2024-05-22 09:13:31,238 - INFO - Device with Key: 3 deleted.
+2024-05-22 09:13:31,240 - DEBUG - Device file updated successfully.
+2024-05-22 09:13:54,161 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 09:13:54,161 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 09:13:58,268 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 33.40 ms
+2024-05-22 09:14:04,185 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 09:14:04,197 - INFO - Device with IP 2.2.2.2 status set to 'Offline' and Acknowledge set to 'True'
+2024-05-22 09:14:50,067 - INFO - Application ended
+2024-05-22 09:19:47,736 - DEBUG - Logger set for ConfigManager
+2024-05-22 09:19:47,736 - INFO - Application started
+2024-05-22 09:19:47,936 - ERROR - Failed to create menu: 'ApplicationGUI' object has no attribute 'delete_device_call'
+2024-05-22 09:19:47,936 - ERROR - Failed to initialize GUI: 'ApplicationGUI' object has no attribute 'delete_device_call'
+2024-05-22 09:19:47,936 - ERROR - Failed to initialize application: 'ApplicationGUI' object has no attribute 'delete_device_call'
+2024-05-22 09:20:14,140 - DEBUG - Logger set for ConfigManager
+2024-05-22 09:20:14,142 - INFO - Application started
+2024-05-22 09:20:14,827 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 09:20:14,831 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 09:20:14,831 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 09:20:19,064 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 33.40 ms
+2024-05-22 09:20:21,833 - INFO - Device with Key: 2 deleted.
+2024-05-22 09:20:21,849 - DEBUG - Device file updated successfully.
+2024-05-22 09:20:24,990 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 09:20:37,159 - INFO - DeviceDialog initialized successfully
+2024-05-22 09:20:37,159 - ERROR - Failed to generate new key: 'NoneType' object is not iterable
+2024-05-22 09:20:37,159 - DEBUG - Device file updated successfully.
+2024-05-22 09:20:52,883 - INFO - DeviceDialog initialized successfully
+2024-05-22 09:20:52,883 - ERROR - Failed to generate new key: 'NoneType' object is not iterable
+2024-05-22 09:20:52,889 - DEBUG - Device file updated successfully.
+2024-05-22 09:21:00,459 - INFO - Device with Key: 3 deleted.
+2024-05-22 09:21:00,459 - DEBUG - Device file updated successfully.
+2024-05-22 09:21:05,149 - INFO - Application ended
+2024-05-22 09:27:16,368 - DEBUG - Logger set for ConfigManager
+2024-05-22 09:27:16,369 - INFO - Application started
+2024-05-22 09:27:16,502 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 09:27:16,505 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 09:27:16,506 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 09:27:20,632 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 28.60 ms
+2024-05-22 09:27:24,673 - INFO - DeviceDialog initialized successfully
+2024-05-22 09:27:24,673 - DEBUG - Device file updated successfully.
+2024-05-22 09:27:26,546 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 09:27:32,093 - INFO - DeviceDialog initialized successfully
+2024-05-22 09:27:32,093 - DEBUG - Device file updated successfully.
+2024-05-22 09:27:33,632 - INFO - Application ended
+2024-05-22 09:29:52,813 - DEBUG - Logger set for ConfigManager
+2024-05-22 09:29:52,814 - INFO - Application started
+2024-05-22 09:29:53,325 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 09:29:53,331 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 09:29:53,332 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 09:29:57,482 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 60.20 ms
+2024-05-22 09:30:03,357 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 09:30:07,850 - INFO - DeviceDialog initialized successfully
+2024-05-22 09:30:07,851 - ERROR - Failed to generate new key: 'NoneType' object is not iterable
+2024-05-22 09:30:07,856 - DEBUG - Device file updated successfully.
+2024-05-22 09:30:14,372 - INFO - Device with Key: 3 deleted.
+2024-05-22 09:30:14,373 - DEBUG - Device file updated successfully.
+2024-05-22 09:30:16,120 - INFO - Application ended
+2024-05-22 09:30:39,524 - DEBUG - Logger set for ConfigManager
+2024-05-22 09:30:39,527 - INFO - Application started
+2024-05-22 09:30:39,674 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 09:30:39,677 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 09:30:39,677 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 09:30:42,647 - INFO - Application ended
+2024-05-22 09:30:44,859 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 09:30:44,861 - ERROR - Error processing ping result for device 8.8.8.8: main thread is not in main loop
+2024-05-22 09:30:45,909 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 09:30:45,910 - ERROR - exception calling callback for <Future at 0x18700aac0e0 state=finished returned CompletedProcess>
+Traceback (most recent call last):
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 59, in process_ping_result
+    self.update_callback(ip, status)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 74, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 71, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 93, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 25, in <lambda>
+    future.add_done_callback(lambda x: self.process_ping_result(x, ip))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 63, in process_ping_result
+    self.update_callback(ip, "Error: Failed to process ping result")
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 74, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 71, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 93, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+2024-05-22 09:30:50,809 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 09:30:50,810 - ERROR - Error processing ping result for device 2.2.2.2: main thread is not in main loop
+2024-05-22 09:30:51,893 - ERROR - Failed to update device status: main thread is not in main loop
+2024-05-22 09:30:51,893 - ERROR - exception calling callback for <Future at 0x18700aac470 state=finished returned str>
+Traceback (most recent call last):
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 59, in process_ping_result
+    self.update_callback(ip, status)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 74, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 71, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 93, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 25, in <lambda>
+    future.add_done_callback(lambda x: self.process_ping_result(x, ip))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\network_operations.py", line 63, in process_ping_result
+    self.update_callback(ip, "Error: Failed to process ping result")
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 74, in update_callback
+    raise e
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 71, in update_callback
+    self.update_device_status(ip, message)
+  File "c:\Users\ccollins\OneDrive - Tombstone Unified School District #1\Python NetMon\NetMon1.1.3.1\modules\application.py", line 93, in update_device_status
+    self.master.after(0, update)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 872, in after
+    name = self._register(callit)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.1008.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 1603, in _register
+    self.tk.createcommand(name, f)
+RuntimeError: main thread is not in main loop
+2024-05-22 09:38:44,834 - DEBUG - Logger set for ConfigManager
+2024-05-22 09:38:44,834 - INFO - Application started
+2024-05-22 09:38:44,909 - ERROR - Failed to load settings: 'ConfigManager' object has no attribute 'file_handler'
+2024-05-22 09:38:44,909 - ERROR - Failed to initialize application: 'ConfigManager' object has no attribute 'file_handler'
+2024-05-22 13:53:22,751 - INFO - Application started
+2024-05-22 13:53:22,813 - ERROR - Failed to initialize application: 'ConfigManager' object has no attribute 'load_settings'
+2024-05-22 13:56:17,981 - INFO - Application started
+2024-05-22 13:56:18,076 - ERROR - Failed to initialize application: 'NoneType' object has no attribute 'log_critical'
+2024-05-22 13:57:41,847 - DEBUG - Logger set for ConfigManager
+2024-05-22 13:57:41,848 - INFO - Application started
+2024-05-22 13:57:41,917 - INFO - Config file loaded successfully.
+2024-05-22 13:57:42,041 - DEBUG - NetworkOperations initialized with ThreadPoolExecutor.
+2024-05-22 13:57:42,116 - INFO - Pinging device with IP: 8.8.8.8
+2024-05-22 13:57:42,117 - INFO - Pinging device with IP: 2.2.2.2
+2024-05-22 13:57:46,430 - INFO - Result for device with IP 8.8.8.8: Online, Avg ping: 24.40 ms
+2024-05-22 13:57:52,222 - INFO - Result for device with IP 2.2.2.2: Offline, Ping Timeout
+2024-05-22 13:57:56,628 - INFO - Device with Key 2 acknowledged.
+2024-05-22 13:57:56,629 - INFO - Acknowledge status updated for device with Key: 2 in CSV file.
+2024-05-22 13:57:56,630 - INFO - Acknowledge status updated for device with Key: 2
+2024-05-22 13:58:22,492 - INFO - Log display auto-refreshed.
+2024-05-22 13:58:27,704 - INFO - Attempting to archive logs...
