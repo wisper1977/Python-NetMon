@@ -34,7 +34,7 @@ class ApplicationGUI:
 
         self.acknowledged_devices = set()  # Track acknowledged devices
         self.plugins_folder = 'plugins'
-        self.plugins = {}
+        self.plugins = []
 
         self.root.title("NetMon - Network Monitoring Tool")
         self.root.iconbitmap('media/NetMon.ico')  # Set the icon for the main window
@@ -81,7 +81,6 @@ class ApplicationGUI:
 
         # Tools Menu
         self.toolsmenu = Menu(menubar, tearoff=0)
-        self.load_plugins()
         menubar.add_cascade(label="Tools", menu=self.toolsmenu)
 
         # Help Menu
@@ -92,49 +91,9 @@ class ApplicationGUI:
 
         self.root.config(menu=menubar)
 
-    def load_plugins(self):
-        """Load plugins from the plugins folder."""
-        if not os.path.exists(self.plugins_folder):
-            os.makedirs(self.plugins_folder)
-
-        for filename in os.listdir(self.plugins_folder):
-            if filename.endswith(".py"):
-                plugin_name = filename[:-3]
-                plugin_path = os.path.join(self.plugins_folder, filename)
-                self.add_plugin(plugin_name, plugin_path)
-
-    def add_plugin(self, plugin_name, plugin_path):
-        """Add a plugin to the Tools menu."""
-        try:
-            # Format the plugin name: replace underscores with spaces and capitalize each word
-            display_name = plugin_name.replace('_', ' ').title()
-
-            spec = importlib.util.spec_from_file_location(plugin_name, plugin_path)
-            module = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(module)
-
-            if hasattr(module, 'run_plugin'):
-                self.plugins[plugin_name] = module.run_plugin
-                self.toolsmenu.add_command(label=display_name, command=lambda: self.run_plugin(plugin_name))
-            else:
-                self.logger.log("ERROR", f"Plugin {plugin_name} does not have a 'run_plugin' function.")
-        except Exception as e:
-            self.logger.log("ERROR", f"Failed to load plugin {plugin_name}: {str(e)}")
-
     def add_tool_menu(self, label, command):
         """Add a command to the Tools menu."""
         self.toolsmenu.add_command(label=label, command=command)
-
-    def run_plugin(self, plugin_name):
-        """Execute the selected plugin."""
-        try:
-            if plugin_name in self.plugins:
-                self.plugins[plugin_name]()
-            else:
-                messagebox.showerror("Error", f"Plugin {plugin_name} not found.")
-        except Exception as e:
-            self.logger.log("ERROR", f"Failed to run plugin {plugin_name}: {str(e)}")
-            messagebox.showerror("Error", f"Failed to run plugin {plugin_name}. Check the logs for more details.")
 
     def setup_treeview(self):
         self.tree = ttk.Treeview(self.root, columns=("ID", "Name", "IP", "Location", "Type", "SNMP Status", "Ping Status", "Status"), show="headings")
