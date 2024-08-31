@@ -57,19 +57,74 @@ Please check out the [Wiki](https://github.com/wisper1977/Python-NetMon/wiki) to
 
 ## Version History
 
-### v1.1.4 - SpeedTest and Minor Enhancements
+### v1.2 - SNMP, SQLLite, Plugins
 **Release Date:** Dev
 
-- Bug Fixes: Fixed minor bugs in the user interface and improved the responsiveness.
-- **New Features**:
-  - SpeedTest: Added a SpeedTest function under Tools menu.
-  - Setup Environment: Add a setup environment to check and make sure all packages are installed and firewall rules are inserted.
+**Core Enhancements**
+
+*SNMP Integration:*
+- Implemented SNMP monitoring using the NetOpsSNMP class.
+- Added SNMP status checks to determine device reachability, with fallback to ping if SNMP fails.
+- Configurable SNMP community strings via config.ini.
+
+*SQLite Integration:*
+- Integrated SQLite database for storing device information, logs, and status updates.
+- Introduced SystemLog class to manage program logs, including error handling and informational messages.
+- Environment setup now ensures database and required folders are created if they do not exist.
+
+**Plugins Architecture**
+
+*Plugin System:*
+-Introduced a plugins folder for modular functionality.
+-Dynamic Tools menu loads and executes plugins at runtime.
+
+*Syslog Plugin:*
+- Developed a Syslog server plugin that listens for syslog messages and stores them in SQLite.
+- Integrated Syslog Viewer in the Tools menu to display and filter syslog messages.
+  
+*Speed Test Plugin:*
+- Added a speed test plugin utilizing speedtest-cli.
+- GUI for running speed tests and displaying download, upload speeds, and ping.
+- Thread-safe GUI updates within the plugin.
+
+**Performance and Stability Improvements**
+
+*Thread-Safe Queue Management:*
+- Implemented a thread-safe queue (update_queue) for managing GUI updates from background threads.
+- Ensured all GUI interactions from background threads are routed through this queue.
+
+*Device Status Tracking:*
+- Introduced counters for tracking consecutive successes and failures for device checks to prevent intermittent "flashing" statuses.
+- Threshold-based mechanism for determining device reachability based on multiple checks.
+
+*Error Handling and Logging:*
+- Improved error handling across modules, with comprehensive logging for easier troubleshooting.
+- Enhanced System Log viewer with log level filters and search functionality.
+
+**User Interface and Usability**
+
+*Reduced Application Size:*
+
+- Optimized the codebase, reducing the overall size by approximately 50%.
+- Simplified GUI code while adding new features, ensuring a cleaner and more maintainable codebase.
+
+*Improved Device Management:*
+- Streamlined device management dialogs (add, edit, delete) for easier interaction.
+- Correctly tracks and highlights acknowledged devices in the Treeview.
+
+*Enhanced Visual Feedback:*
+- Improved visual indicators in the Treeview for device statuses, with color-coding for reachable and unreachable devices.
+- Added a countdown timer and progress bar for refresh intervals, giving users clear feedback on the next check.
+
+**Environment Setup**
+
+*Automated Setup:*
+- Automated environment setup ensures all necessary Python packages are installed.
+- Added firewall configuration steps for both Windows and Linux to allow Syslog traffic on UDP port 514.
 
 ## Future Plans
 - Detailed Device Views: Implement functionality for users to click on a device in the list and display detailed information or statistics in a separate dialog or pane.
 - Input Validation: Implement rigorous input validation to secure against potential injection attacks, particularly for inputs affecting network operations or subprocess invocations.
-- SNMP Integration: Introduce an SNMP check to verify that a device is operational before attempting to ping it.
-- SQLite Integration: Develop a more effective format for managing logs and syslogs using SQLite for improved storage and retrieval.
 - Simple FTP Server: Build a basic FTP server to facilitate file transfers within the network.
 - Penetration Testing: Conduct penetration testing to identify and address potential security vulnerabilities.
 
