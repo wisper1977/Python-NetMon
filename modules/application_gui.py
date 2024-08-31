@@ -2,6 +2,7 @@ import os
 import threading
 import webbrowser
 import importlib.util
+import queue
 import tkinter as tk
 import pygame
 from tkinter import Menu, Toplevel, Label, Entry, Button, messagebox, Text, Scrollbar, filedialog, VERTICAL, RIGHT, Y, END
@@ -33,6 +34,11 @@ class ApplicationGUI:
         self.help_url = self.settings_manager.config.get('DEFAULT', 'hyperlink')
 
         self.acknowledged_devices = set()  # Track acknowledged devices
+        self.consecutive_failures = {}  # Track consecutive failures
+        self.consecutive_successes = {}  # Track consecutive successes
+        self.failure_threshold = 2  # Define failure threshold
+        self.success_threshold = 2  # Define success threshold
+
         self.plugins_folder = 'plugins'
         self.plugins = []
 
@@ -44,6 +50,9 @@ class ApplicationGUI:
 
         self.timer_running = False  # Control flag for the countdown timer
 
+        # Create a queue to handle thread-safe updates to the GUI
+        self.update_queue = queue.Queue()
+
         # Load devices and start monitoring asynchronously
         self.load_devices_async()
 
@@ -52,6 +61,9 @@ class ApplicationGUI:
         # Initialize plugins
         init_syslog_plugin(self)
         init_speedtest_plugin(self)
+
+        # Start processing the update queue
+        self.process_queue()
 
     def set_icon(self, window):
         """Sets the application icon for the provided window."""
@@ -95,6 +107,14 @@ class ApplicationGUI:
         """Add a command to the Tools menu."""
         self.toolsmenu.add_command(label=label, command=command)
 
+    def process_queue(self):
+        """Process tasks in the update queue."""
+        while not self.update_queue.empty():
+            task = self.update_queue.get()
+            task()
+
+        self.root.after(100, self.process_queue)
+
     def setup_treeview(self):
         self.tree = ttk.Treeview(self.root, columns=("ID", "Name", "IP", "Location", "Type", "SNMP Status", "Ping Status", "Status"), show="headings")
         
@@ -126,7 +146,7 @@ class ApplicationGUI:
     def load_devices_and_start_monitoring(self):
         """Loads devices and starts monitoring them."""
         devices = self.device_manager.get_all_devices()  # Load devices from the database
-        self.root.after(0, self.update_treeview_with_devices, devices)  # Update GUI on the main thread
+        self.update_queue.put(lambda: self.update_treeview_with_devices(devices))
         self.start_monitoring()  # Begin monitoring after devices are loaded
 
     def update_treeview_with_devices(self, devices):
@@ -174,6 +194,7 @@ class ApplicationGUI:
             # Initialize SNMP and Ping statuses
             snmp_status = "Failed"
             ping_status = "Failed"
+            overall_status = last_status  # Default to last status
 
             snmp_result = self.snmp.snmp_get(ip_address, '1.3.6.1.2.1.1.1.0')  # Example OID
             if snmp_result:
@@ -189,14 +210,23 @@ class ApplicationGUI:
             else:
                 self.logger.log("ERROR", f"No response from {name} ({ip_address})")
 
-            overall_status = "Reachable" if snmp_result or ping_result else "Unreachable"
+            if not snmp_result and not ping_result:
+                self.consecutive_successes[device_id] = 0  # Reset success counter
+                self.consecutive_failures[device_id] = self.consecutive_failures.get(device_id, 0) + 1
+                if self.consecutive_failures[device_id] >= self.failure_threshold:
+                    overall_status = "Unreachable"
+            else:
+                self.consecutive_failures[device_id] = 0  # Reset failure counter
+                self.consecutive_successes[device_id] = self.consecutive_successes.get(device_id, 0) + 1
+                if self.consecutive_successes[device_id] >= self.success_threshold:
+                    overall_status = "Reachable"
             
-            # Update the status including SNMP and Ping results
-            self.update_device_status(device_id, snmp_status, ping_status, overall_status)
+            # Queue the update_device_status call to be processed by the main thread
+            self.update_queue.put(lambda: self.update_device_status(device_id, snmp_status, ping_status, overall_status))
 
             # Play alert sound if the device is unreachable and not acknowledged
             if overall_status == "Unreachable" and device_id not in self.acknowledged_devices:
-                self.play_alert_sound()
+                self.update_queue.put(self.play_alert_sound)
 
     def update_device_status(self, device_id, snmp_status, ping_status, overall_status):
         # Assuming `update_status` in `DeviceManager` can handle SNMP and Ping statuses
@@ -207,7 +237,7 @@ class ApplicationGUI:
             self.acknowledged_devices.remove(device_id)
 
         # Refresh the device list in the GUI asynchronously
-        self.root.after(0, self.load_devices_async)
+        self.update_queue.put(self.load_devices_async)
 
     def play_alert_sound(self):
         if not pygame.mixer.music.get_busy():
@@ -223,7 +253,7 @@ class ApplicationGUI:
             if device_id:
                 device_id = int(device_id)
                 self.acknowledged_devices.add(device_id)
-                self.update_treeview_with_devices(self.device_manager.get_all_devices())
+                self.update_queue.put(lambda: self.update_treeview_with_devices(self.device_manager.get_all_devices()))
 
     def setup_refresh_clock(self):
         self.refresh_label = Label(self.root, text="Next refresh in:")
@@ -358,7 +388,7 @@ class ApplicationGUI:
                     return
             dialog.destroy()
             messagebox.showinfo(title, f"{title} completed successfully.")
-            self.load_devices_async()  # Reload devices asynchronously to update the Treeview
+            self.update_queue.put(self.load_devices_async)  # Reload devices asynchronously to update the Treeview
 
         Button(dialog, text="Submit", command=submit).grid(row=5 if include_id else 4, column=0, columnspan=2, pady=10)
 
