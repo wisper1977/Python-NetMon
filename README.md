@@ -10,6 +10,7 @@ Welcome to the Python NetMon repository! Python NetMon is a simple, intuitive ne
 - [Usage](#usage)
 - [Wiki](#wiki)
 - [Version History](#version-history)
+- [Known Bugs](#known-bugs)
 - [Future Plans](#future-plans)
 - [Contributing](#contributing)
 - [License](#license)
@@ -122,6 +123,9 @@ Please check out the [Wiki](https://github.com/wisper1977/Python-NetMon/wiki) to
 - Automated environment setup ensures all necessary Python packages are installed.
 - Added firewall configuration steps for both Windows and Linux to allow Syslog traffic on UDP port 514.
 
+## Known Bugs
+- SNMP causing coroutine errors.
+  
 ## Future Plans
 - Detailed Device Views: Implement functionality for users to click on a device in the list and display detailed information or statistics in a separate dialog or pane.
 - Input Validation: Implement rigorous input validation to secure against potential injection attacks, particularly for inputs affecting network operations or subprocess invocations.
