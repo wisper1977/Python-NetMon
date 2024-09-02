@@ -31,7 +31,7 @@ Welcome to the Python NetMon repository! Python NetMon is a simple, intuitive ne
 - Python 3.x
 - Tkinter (typically included with Python)
 - Should be handled by `setup_env.py`
-- - Pygame (  `pip install pygame `)
+  - Pygame (  `pip install pygame `)
   - Speedtest-cli ( `pip install speedtest-cli `)
   - Pyasn1 ( `pip install pyasn1`)
   - Pysmi ( `pip install pysmi`)
