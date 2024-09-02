@@ -136,7 +136,6 @@ Please check out the [Wiki](https://github.com/wisper1977/Python-NetMon/wiki) to
 ## Future Plans
 - Detailed Device Views: Implement functionality for users to click on a device in the list and display detailed information or statistics in a separate dialog or pane.
 - Input Validation: Implement rigorous input validation to secure against potential injection attacks, particularly for inputs affecting network operations or subprocess invocations.
-- Simple FTP Server: Build a basic FTP server to facilitate file transfers within the network.
 - Penetration Testing: Conduct penetration testing to identify and address potential security vulnerabilities.
 
 ## Contributing
