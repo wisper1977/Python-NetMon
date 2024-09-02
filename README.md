@@ -24,6 +24,7 @@ Welcome to the Python NetMon repository! Python NetMon is a simple, intuitive ne
 - **Keyboard Shortcuts**: Quick access to common actions using keyboard shortcuts.
 - **Syslog Server**: Integrated Syslog Server and Syslog Viewer.
 - **SpeedTest**: Integrated a SpeedTest funciton.
+- **FTP Server**: Integrated a FTP Server funciton.
 
 ## Requirements
 
