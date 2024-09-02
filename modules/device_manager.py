@@ -2,7 +2,7 @@ from modules.db_operations import DatabaseOperations
 from modules.system_log import SystemLog
 
 class DeviceManager:
-    def __init__(self):
+    def __init__(self, db_ops, logger):
         self.db_ops = DatabaseOperations()
         self.logger = SystemLog()
 

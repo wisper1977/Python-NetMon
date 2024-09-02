@@ -1,20 +1,21 @@
 import sqlite3
 import threading
+import csv
 
 class DatabaseOperations:
     def __init__(self, db_path='database/network_monitor.db'):
         self.db_path = db_path
-        self.lock = threading.Lock()  # Create a lock for serializing database access
+        self.lock = threading.Lock()
         self.create_tables()
+        self.ensure_google_device()
 
     def create_connection(self):
-        """Create a new database connection for the current thread."""
-        conn = sqlite3.connect(self.db_path, timeout=10)  # Use a timeout to wait for locks to clear
-        conn.execute('PRAGMA journal_mode=WAL;')  # Enable WAL mode
+        conn = sqlite3.connect(self.db_path, timeout=10)
+        conn.execute('PRAGMA journal_mode=WAL;')
         return conn, conn.cursor()
 
     def execute_query(self, query, params=None):
-        with self.lock:  # Lock access to the database
+        with self.lock:
             conn, cursor = self.create_connection()
             try:
                 if params:
@@ -22,24 +23,21 @@ class DatabaseOperations:
                 else:
                     cursor.execute(query)
                 
-                # If it's a SELECT query, return the fetched results
                 if query.strip().upper().startswith("SELECT"):
                     result = cursor.fetchall()
                     return result
 
                 conn.commit()
             except sqlite3.DatabaseError as e:
-                conn.rollback()  # Rollback on error
+                conn.rollback()
                 raise e
             finally:
                 cursor.close()
                 conn.close()
 
     def create_tables(self):
-        """Create tables if they don't exist."""
         conn, cursor = self.create_connection()
         
-        # Create the devices table with Location and Type fields
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS devices (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -54,7 +52,6 @@ class DatabaseOperations:
             )
         ''')
 
-        # Create the status_log table if it doesn't exist
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS status_log (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -66,7 +63,6 @@ class DatabaseOperations:
             )
         ''')
 
-        # Create the program_logs table if it doesn't exist
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS program_logs (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -79,17 +75,22 @@ class DatabaseOperations:
         cursor.close()
         conn.close()
 
+    def ensure_google_device(self):
+        # Check if the devices table is empty
+        query = "SELECT COUNT(*) FROM devices"
+        result = self.execute_query(query)
+        if result[0][0] == 0:  # If the count is 0, the table is empty
+            # Insert the Google device
+            self.execute_query(
+                "INSERT INTO devices (name, ip_address, location, type) VALUES (?, ?, ?, ?)",
+                ('Google', '8.8.8.8', 'Internet', 'DNS')
+            )
+
     def get_all_devices(self):
-        with self.lock:
-            conn, cursor = self.create_connection()
-            cursor.execute("SELECT id, name, ip_address, location, type, snmp_status, ping_status, last_status FROM devices")
-            devices = cursor.fetchall()
-            cursor.close()
-            conn.close()
-            return devices
+        query = "SELECT * FROM devices"
+        return self.execute_query(query)
 
     def update_status(self, device_id, snmp_status, ping_status, overall_status):
-        """Update the status of a device."""
         query = '''
             UPDATE devices SET snmp_status = ?, ping_status = ?, last_status = ?, last_checked = datetime('now')
             WHERE id = ?
@@ -97,5 +98,24 @@ class DatabaseOperations:
         self.execute_query(query, (snmp_status, ping_status, overall_status, device_id))
 
     def log_event(self, message):
-        """Log an event to the program_logs table."""
-        self.execute_query("INSERT INTO program_logs (log_message, timestamp) VALUES (?, datetime('now'))", (message,))
+        query = "INSERT INTO program_logs (log_message, timestamp) VALUES (?, datetime('now'))"
+        self.execute_query(query, (message,))
+
+    def import_devices(self, file_path):
+        """Imports devices from a CSV file."""
+        with open(file_path, newline='') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                name = row.get('Name')
+                ip_address = row.get('IP Address')
+                location = row.get('Location')
+                device_type = row.get('Type')
+
+                if name and ip_address:
+                    try:
+                        self.execute_query('''
+                            INSERT INTO devices (name, ip_address, location, type) VALUES (?, ?, ?, ?)
+                        ''', (name, ip_address, location, device_type))
+                    except sqlite3.IntegrityError as e:
+                        print(f"Failed to import device {name} ({ip_address}): {e}")
+                        continue

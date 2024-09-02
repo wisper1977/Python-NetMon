@@ -1,11 +1,12 @@
-from pysnmp.hlapi import *
+from pysnmp.hlapi.asyncio import getCmd, CommunityData, UdpTransportTarget, ContextData, ObjectType, ObjectIdentity, SnmpEngine
+import asyncio
 
 class NetOpsSNMP:
     def __init__(self, community_string="public", logger=None):
         self.community_string = community_string
         self.logger = logger
 
-    def snmp_get(self, ip_address, oid):
+    async def snmp_get(self, ip_address, oid):
         try:
             # Create the SNMP GET command
             iterator = getCmd(
@@ -17,7 +18,7 @@ class NetOpsSNMP:
             )
 
             # Fetch the result
-            errorIndication, errorStatus, errorIndex, varBinds = next(iterator)
+            errorIndication, errorStatus, errorIndex, varBinds = await iterator
 
             # Handle potential errors
             if errorIndication:

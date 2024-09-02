@@ -16,7 +16,7 @@ def ensure_package_installed(package_name, logger):
 def setup_environment(logger):
     """Sets up the environment by ensuring required packages are installed and configuring firewall rules."""
     # Ensure required packages are installed
-    required_packages = ["pysnmp", "pygame", "speedtest-cli"]  # Add any other packages you need
+    required_packages = ["pyasn1", "pysmi", "snmpclitools", "pysnmp", "pygame", "speedtest-cli"]  # Add any other packages you need
     for package in required_packages:
         ensure_package_installed(package, logger)
 

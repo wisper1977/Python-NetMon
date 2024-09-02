@@ -2,10 +2,10 @@ import subprocess
 from modules.system_log import SystemLog
 
 class NetOpsPing:
-    def __init__(self, attempts=5, timeout=1):
+    def __init__(self, attempts=5, timeout=1, logger=None):
         self.attempts = attempts
         self.timeout = timeout
-        self.logger = SystemLog()
+        self.logger = logger if logger else SystemLog()  # Use provided logger or default to a new SystemLog instance
         
     def ping_device(self, ip_address):
         try:
