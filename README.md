@@ -30,8 +30,14 @@ Welcome to the Python NetMon repository! Python NetMon is a simple, intuitive ne
 
 - Python 3.x
 - Tkinter (typically included with Python)
-- Pygame (  `pip install pygame `), will auto install when you run the program
-- Speedtest-cli ( `pip install speedtest-cli `), will auto install when you run the program
+- Should be handled by `setup_env.py`
+- - Pygame (  `pip install pygame `)
+  - Speedtest-cli ( `pip install speedtest-cli `)
+  - Pyasn1 ( `pip install pyasn1`)
+  - Pysmi ( `pip install pysmi`)
+  - SNMPCliTools ( `pip install snmpclitools`)
+  - PySnmp ( `pip install pysnmp`)
+  - PyFTPlib ( `pip install pyftpdlib`)
 - Additional Python libraries: `csv`, `configparser`, `subprocess`, `platform`, `ipaddress`, `logging`, `threading`, `queue`, `re`, `webbrowser`
 
 ## Installation
