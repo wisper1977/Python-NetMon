@@ -1,67 +1,75 @@
-# Version: 1.1.3.1
-# Description: Module to manage the settings dialog for the application.
+import configparser
+from tkinter import Toplevel, Label, Entry, Button, messagebox
+from modules.system_log import SystemLog
 
-import tkinter as tk
-from tkinter import simpledialog, Label, Entry, messagebox, Frame, X, W
-from modules.log_manager import LogManager   
+class SettingsManager:
+    def __init__(self, config_path='config/config.ini'):
+        self.config = configparser.ConfigParser()
+        self.config_path = config_path
+        self.load_settings()
+        self.logger = SystemLog(self.config.get('Database', 'path', fallback='database/network_monitor.db'))
 
-class SettingsManager(simpledialog.Dialog):
-    def __init__(self, master, config_manager):
-        """SettingsManager constructor to initialize the dialog window."""
-        self.logger = LogManager.get_instance()
-        try:
-            self.config_manager = config_manager
-            self.num_attempts = int(self.config_manager.get_setting('PING', 'attempts', '5'))
-            self.timeout_duration = int(self.config_manager.get_setting('PING', 'timeout', '15'))
-            super().__init__(master, title="Ping Settings")
-            self.logger.log_info("SettingsManager initialized successfully")
-        except Exception as e:
-            self.logger.log_error("Failed to initialize SettingsManager: " + str(e))
-            raise e
+    def load_settings(self):
+        """Load settings from the config file."""
+        self.config.read(self.config_path)
 
-    def body(self, master):
-        """Build the body of the dialog with input fields for settings."""
-        try:
-            network_frame = tk.Frame(master)
-            network_frame.pack(fill=tk.X, padx=5, pady=5)
+    def get_snmp_community_string(self):
+        return self.config.get('SNMP', 'community_string', fallback='public')
+    
+    def save_settings(self):
+        """Save the current settings to the config file."""
+        with open(self.config_path, 'w') as configfile:
+            self.config.write(configfile)
 
-            tk.Label(network_frame, text="Network Settings", font=("Arial", 12), anchor=tk.W).pack(fill=tk.X)
-            self.refreshinterval_var = tk.StringVar(value=self.config_manager.get_setting('Network', 'refreshinterval'))
-            tk.Label(network_frame, text="Refresh Interval:").pack(anchor=tk.W)
-            tk.Entry(network_frame, textvariable=self.refreshinterval_var).pack(fill=tk.X)
+    def open_settings_dialog(self, root):
+        dialog = Toplevel(root)
+        dialog.title("Settings")
 
-            ping_frame = tk.Frame(master)
-            ping_frame.pack(fill=tk.X, padx=5, pady=5)
+        # Network Settings
+        Label(dialog, text="Network Refresh Interval (seconds):").grid(row=0, column=0, padx=10, pady=5)
+        refresh_interval_entry = Entry(dialog)
+        refresh_interval_entry.grid(row=0, column=1, padx=10, pady=5)
+        refresh_interval_entry.insert(0, self.config.get('Network', 'refreshinterval', fallback='180'))
 
-            tk.Label(ping_frame, text="Ping Settings", font=("Arial", 12), anchor=tk.W).pack(fill=tk.X)
-            self.attempts_var = tk.StringVar(value=self.config_manager.get_setting('PING', 'attempts'))
-            tk.Label(ping_frame, text="Attempts:").pack(anchor=tk.W)
-            tk.Entry(ping_frame, textvariable=self.attempts_var).pack(fill=tk.X)
+        # Ping Settings
+        Label(dialog, text="Ping Attempts:").grid(row=1, column=0, padx=10, pady=5)
+        ping_attempts_entry = Entry(dialog)
+        ping_attempts_entry.grid(row=1, column=1, padx=10, pady=5)
+        ping_attempts_entry.insert(0, self.config.get('PING', 'attempts', fallback='5'))
 
-            self.timeout_var = tk.StringVar(value=self.config_manager.get_setting('PING', 'timeout'))
-            tk.Label(ping_frame, text="Timeout:").pack(anchor=tk.W)
-            tk.Entry(ping_frame, textvariable=self.timeout_var).pack(fill=tk.X)
+        Label(dialog, text="Ping Timeout (seconds):").grid(row=2, column=0, padx=10, pady=5)
+        ping_timeout_entry = Entry(dialog)
+        ping_timeout_entry.grid(row=2, column=1, padx=10, pady=5)
+        ping_timeout_entry.insert(0, self.config.get('PING', 'timeout', fallback='40'))
 
-            return network_frame
-        except Exception as e:
-            self.logger.log_error("Failed to build dialog body: " + str(e))
-            raise e
+        # SNMP Settings
+        Label(dialog, text="SNMP Community String:").grid(row=3, column=0, padx=10, pady=5)
+        snmp_entry = Entry(dialog)
+        snmp_entry.grid(row=3, column=1, padx=10, pady=5)
+        snmp_entry.insert(0, self.config.get('SNMP', 'community_string', fallback='public'))
 
-    def apply(self):
-        """Apply the changes made in the dialog to the configuration file."""
-        try:
-            attempts = int(self.attempts_var.get())
-            timeout = int(self.timeout_var.get())
-            refreshinterval = int(self.refreshinterval_var.get())
-            if attempts > 10:
-                messagebox.showerror("Invalid Input", "Number of attempts cannot exceed 10.")
-                self.logger.log_error("Number of attempts cannot exceed 10.")
-                return
-            # Save settings using the new method
-            self.config_manager.save_settings('PING', 'attempts', str(attempts))
-            self.config_manager.save_settings('PING', 'timeout', str(timeout))
-            self.config_manager.save_settings('Network', 'refreshinterval', refreshinterval)
-            self.logger.log_info("Ping and Network settings updated from settings dialog.")
-        except Exception as e:
-            self.logger.log_error("Failed to apply changes in SettingsManager: " + str(e))
-            raise e
+        # Database Settings
+        Label(dialog, text="Database Path:").grid(row=4, column=0, padx=10, pady=5)
+        db_path_entry = Entry(dialog)
+        db_path_entry.grid(row=4, column=1, padx=10, pady=5)
+        db_path_entry.insert(0, self.config.get('Database', 'path', fallback='database/network_monitor.db'))
+
+        def save_settings():
+            # Save each setting to the config
+            self.config.set('Network', 'refreshinterval', refresh_interval_entry.get())
+            self.config.set('PING', 'attempts', ping_attempts_entry.get())
+            self.config.set('PING', 'timeout', ping_timeout_entry.get())
+            self.config.set('SNMP', 'community_string', snmp_entry.get())
+            self.config.set('Database', 'path', db_path_entry.get())
+
+            # Save the updated config to the file
+            self.save_settings()
+
+            # Log the update
+            self.logger.log("INFO", f"Settings updated: Refresh interval: {refresh_interval_entry.get()}, Ping attempts: {ping_attempts_entry.get()}, Ping timeout: {ping_timeout_entry.get()}, SNMP community: {snmp_entry.get()}")
+
+            # Close the dialog
+            dialog.destroy()
+            messagebox.showinfo("Settings", "Settings saved successfully.")
+
+        Button(dialog, text="Save", command=save_settings).grid(row=5, column=0, columnspan=2, pady=10)

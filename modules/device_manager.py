@@ -1,133 +1,87 @@
-# Version: 1.1.3.1
-# Description: Module to manage devices and their details.
-
-import csv
-from modules.device_file_handler import DeviceFileHandler
-from modules.log_manager import LogManager
+from modules.db_operations import DatabaseOperations
+from modules.system_log import SystemLog
 
 class DeviceManager:
-    def __init__(self, filepath='config/equipment.csv'):
-        """Initialize the DeviceManager with a DeviceFileHandler and LogManager."""
-        try:
-            self.filepath = filepath  # store filepath as an instance variable
-            self.file_handler = DeviceFileHandler(filepath)
-            self.logger = LogManager.get_instance()
-            self.devices = self.load_devices_from_file()
-        except Exception as e:
-            self.logger.log_error(f"Failed to initialize DeviceManager: {e}")
-            raise e
+    def __init__(self, db_ops, logger):
+        self.db_ops = DatabaseOperations()
+        self.logger = SystemLog()
 
-    def load_devices_from_file(self):
-        """Load the devices from the device file."""
-        try:
-            return self.file_handler.read_devices()
-        except Exception as e:
-            self.logger.log_error(f"Failed to load devices: {e}")
-            return []
+    def update_status(self, device_id, snmp_status, ping_status, overall_status):
+        query = '''
+            UPDATE devices SET snmp_status = ?, ping_status = ?, last_status = ?, last_checked = datetime('now')
+            WHERE id = ?
+        '''
+        self.db_ops.execute_query(query, (snmp_status, ping_status, overall_status, device_id))
 
-    def save_device(self, device):
-        """Save a new device to the device file."""
+    def add_device(self, name, ip_address, location, device_type):
         try:
-            devices = self.load_devices_from_file()
-            # Ensure uniqueness of keys
-            new_key = self.generate_new_key(devices)
-            device['Key'] = str(new_key)
-            devices.append(device)
-            self.file_handler.write_devices(devices)
+            query = '''
+                INSERT INTO devices (name, ip_address, location, type, last_status, last_checked) 
+                VALUES (?, ?, ?, ?, 'Unknown', datetime('now'))
+            '''
+            self.db_ops.execute_query(query, (name, ip_address, location, device_type))
+            self.logger.log("INFO", f"Device added: {name} ({ip_address})")
         except Exception as e:
-            self.logger.log_error(f"Failed to save device: {e}")
+            self.logger.log("ERROR", f"Failed to add device: {name} ({ip_address}) - {str(e)}")
+            raise
 
-    def delete_device(self, device_key):
-        """Delete a device with the given key from the device file."""
+    def edit_device(self, device_id, new_name, new_ip_address, new_location, new_type):
         try:
-            devices = self.load_devices_from_file()
-            original_count = len(devices)
-            devices = [device for device in devices if device['Key'] != str(device_key)]
-            if len(devices) == original_count:
-                self.logger.log_warning(f"No device found with Key: {device_key} to delete.")
+            # Retrieve the current values
+            query = "SELECT name, ip_address, location, type FROM devices WHERE id = ?"
+            current_values = self.db_ops.execute_query(query, (device_id,))
+            
+            if not current_values:
+                raise Exception("Device not found")
+
+            current_values = current_values[0]  # fetchone returns a list of tuples
+
+            changes = []
+            if current_values[0] != new_name:
+                changes.append(f"Name changed from '{current_values[0]}' to '{new_name}'")
+            if current_values[1] != new_ip_address:
+                changes.append(f"IP Address changed from '{current_values[1]}' to '{new_ip_address}'")
+            if current_values[2] != new_location:
+                changes.append(f"Location changed from '{current_values[2]}' to '{new_location}'")
+            if current_values[3] != new_type:
+                changes.append(f"Type changed from '{current_values[3]}' to '{new_type}'")
+
+            # Update the device
+            query = '''
+                UPDATE devices SET name = ?, ip_address = ?, location = ?, type = ? WHERE id = ?
+            '''
+            self.db_ops.execute_query(query, (new_name, new_ip_address, new_location, new_type, device_id))
+
+            # Log the changes
+            if changes:
+                change_summary = "; ".join(changes)
+                self.logger.log("INFO", f"Device ID {device_id} edited: {change_summary}")
             else:
-                self.logger.log_info(f"Device with Key: {device_key} deleted.")
-                self.file_handler.write_devices(devices)
-                self.load_devices_from_file()  # Reload devices after deleting
-        except Exception as e:
-            self.logger.log_error(f"Failed to delete device: {e}")
-            raise e
+                self.logger.log("INFO", f"Device ID {device_id} edited with no changes")
 
-    def add_device(self, new_device):
-        """Add a new device and save it to the device file."""
+        except Exception as e:
+            self.logger.log("ERROR", f"Failed to edit device: ID {device_id} - {str(e)}")
+            raise
+
+    def delete_device(self, device_id):
         try:
-            new_key = self.generate_new_key()
-            new_device['Key'] = str(new_key)
-            self.save_device(new_device)
-            self.load_devices_from_file()  # Reload devices after adding
+            query = "DELETE FROM devices WHERE id = ?"
+            self.db_ops.execute_query(query, (device_id,))
+            self.logger.log("INFO", f"Device deleted: ID {device_id}")
         except Exception as e:
-            self.logger.log_error(f"Failed to add device: {e}")
-            raise e
-    
-    def edit_device(self, device_key, new_details):
-        """Edit an existing device and save the changes to the device file."""
-        try:
-            devices = self.load_devices_from_file()
-            for device in devices:
-                if device['Key'] == device_key:
-                    # If the IP has changed, update the device with the new details
-                    if new_details['IP'] != device['IP']:
-                        device.update(new_details)
-                    else:
-                        # If the IP has not changed, update the device without changing the status
-                        new_details['Status'] = device['Status']
-                        device.update(new_details)
-                    self.file_handler.write_devices(devices)
-                    self.lload_devices_from_file()  # Reload devices after editing
-                    break
-            else:
-                self.logger.log_warning(f"No device found with Key: {device_key} to edit.")
-        except Exception as e:
-            self.logger.log_error(f"Failed to edit device: {e}")
-            raise e
+            self.logger.log("ERROR", f"Failed to delete device: ID {device_id} - {str(e)}")
+            raise
 
-    def update_device(self, device_key, new_details):
-        """Update the details of a device with the given key."""
-        try:
-            devices = self.load_devices_from_file()
-            for device in devices:
-                if device['Key'] == str(device_key):
-                    device.update(new_details)
-            self.file_handler.write_devices(devices)
-        except Exception as e:
-            self.logger.log_error(f"Failed to update device: {e}")
+    def get_device(self, device_id):
+        # Retrieve a single device's details
+        query = "SELECT * FROM devices WHERE id = ?"
+        result = self.db_ops.execute_query(query, (device_id,))
+        return result[0] if result else None
 
-    def update_acknowledge_status(self, device_key, status):
-        """Update the acknowledge status of a device."""
-        try:
-            # Read the CSV file into a list of rows
-            with open(self.filepath, 'r') as file:
-                reader = csv.reader(file)
-                data = list(reader)
-
-            # Find the row with the device key and update the status
-            for row in data:
-                if row[0] == device_key:  # assuming the device key is in the 1st column
-                    row[6] = status  # assuming the acknowledge status is in the 7th column
-                    self.logger.log_info(f"Device with Key {device_key} acknowledged.")
-                    break  # exit the loop once the device key is found
-
-            # Write the updated data back to the CSV file
-            with open(self.filepath, 'w', newline='') as file:
-                writer = csv.writer(file)
-                writer.writerows(data)
-                self.logger.log_info(f"Acknowledge status updated for device with Key: {device_key} in CSV file.")
-
-            self.logger.log_info(f"Acknowledge status updated for device with Key: {device_key}")
-        except Exception as e:
-            self.logger.log_error(f"Failed to update acknowledge status: {e}")
-            return e
-
-    def generate_new_key(self, devices=None):
-        """Generate a new unique key for a device based on existing keys."""
-        try:
-            max_key = max((int(device['Key']) for device in devices), default=0)
-            return max_key + 1
-        except Exception as e:
-            self.logger.log_error(f"Failed to generate new key: {e}")
-            return 1  # Default to 1 if key generation fails
+    def get_all_devices(self):
+        query = '''
+            SELECT id, name, ip_address, location, type, snmp_status, ping_status, last_status 
+            FROM devices
+        '''
+        result = self.db_ops.execute_query(query)
+        return result if result else []

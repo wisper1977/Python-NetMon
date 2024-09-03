@@ -1,4 +1,4 @@
-# Python NetMon - 1.1.3.1
+# Python NetMon - 1.2
 
 Welcome to the Python NetMon repository! Python NetMon is a simple, intuitive network monitoring tool built with Python and Tkinter. It allows users to manage network devices, monitor their status, and view detailed ping statistics in real-time.
 
@@ -10,6 +10,7 @@ Welcome to the Python NetMon repository! Python NetMon is a simple, intuitive ne
 - [Usage](#usage)
 - [Wiki](#wiki)
 - [Version History](#version-history)
+- [Known Bugs](#known-bugs)
 - [Future Plans](#future-plans)
 - [Contributing](#contributing)
 - [License](#license)
@@ -22,12 +23,21 @@ Welcome to the Python NetMon repository! Python NetMon is a simple, intuitive ne
 - **Logging**: Detailed logging of application activities and errors.
 - **Keyboard Shortcuts**: Quick access to common actions using keyboard shortcuts.
 - **Syslog Server**: Integrated Syslog Server and Syslog Viewer.
+- **SpeedTest**: Integrated a SpeedTest funciton.
+- **FTP Server**: Integrated a FTP Server funciton.
 
 ## Requirements
 
 - Python 3.x
 - Tkinter (typically included with Python)
-- Pygame (  `pip install pygame `)
+- Should be handled by `setup_env.py`
+  - Pygame (  `pip install pygame `)
+  - Speedtest-cli ( `pip install speedtest-cli `)
+  - Pyasn1 ( `pip install pyasn1`)
+  - Pysmi ( `pip install pysmi`)
+  - SNMPCliTools ( `pip install snmpclitools`)
+  - PySnmp ( `pip install pysnmp`)
+  - PyFTPlib ( `pip install pyftpdlib`)
 - Additional Python libraries: `csv`, `configparser`, `subprocess`, `platform`, `ipaddress`, `logging`, `threading`, `queue`, `re`, `webbrowser`
 
 ## Installation
@@ -39,19 +49,7 @@ Welcome to the Python NetMon repository! Python NetMon is a simple, intuitive ne
 2. Navigate to the project directory:
    ```bash
    cd Python\ NetMon\
-
-3. Create a firewall rule for the Syslog server 
-
-   Windows PowerShell
-      ```bash
-      New-NetFirewallRule -DisplayName "Allow Syslog Server" -Direction Inbound -Protocol UDP -LocalPort 514 -Action Allow
-
-  Linux unsing ipTables
-      ```bash
-      sudo iptables -A INPUT -p udp --dport 514 -j ACCEPT
-      sudo iptables-save | sudo tee /etc/sysconfig/iptables
-      sudo systemctl restart iptables
-    
+   
   No additional installation required if you have Python installed.
 
 ## Usage
@@ -67,22 +65,78 @@ Please check out the [Wiki](https://github.com/wisper1977/Python-NetMon/wiki) to
 
 ## Version History
 
-### v1.1.3.1 - Syslog Server and Minor Enhancements
-**Release Date:** August 28, 2024
+### v1.2 - SNMP, SQLLite, Plugins
+**Release Date:** 9/2/2024
 
-- Bug Fixes: Fixed minor bugs in the user interface and improved the responsiveness.
-- Restructure of file system to a module based system.
-- Cleanup of code for easier understanding of functionality.
-- **New Features**:
-  - Syslog Server: Added the capability of using as a Syslog Server.
-  - Syslog Viewer: Added a Syslog viewer.
+**Core Enhancements**
 
+*SNMP Integration:*
+- Implemented SNMP monitoring using the NetOpsSNMP class.
+- Added SNMP status checks to determine device reachability, with fallback to ping if SNMP fails.
+- Configurable SNMP community strings via config.ini.
+
+*SQLite Integration:*
+- Integrated SQLite database for storing device information, logs, and status updates.
+- Introduced SystemLog class to manage program logs, including error handling and informational messages.
+- Environment setup now ensures database and required folders are created if they do not exist.
+
+**Plugins Architecture**
+
+*Plugin System:*
+-Introduced a plugins folder for modular functionality.
+-Dynamic Tools menu loads and executes plugins at runtime.
+
+*Syslog Plugin:*
+- Developed a Syslog server plugin that listens for syslog messages and stores them in SQLite.
+- Integrated Syslog Viewer in the Tools menu to display and filter syslog messages.
+  
+*Speed Test Plugin:*
+- Added a speed test plugin utilizing speedtest-cli.
+- GUI for running speed tests and displaying download, upload speeds, and ping.
+- Thread-safe GUI updates within the plugin.
+
+**Performance and Stability Improvements**
+
+*Thread-Safe Queue Management:*
+- Implemented a thread-safe queue (update_queue) for managing GUI updates from background threads.
+- Ensured all GUI interactions from background threads are routed through this queue.
+
+*Device Status Tracking:*
+- Introduced counters for tracking consecutive successes and failures for device checks to prevent intermittent "flashing" statuses.
+- Threshold-based mechanism for determining device reachability based on multiple checks.
+
+*Error Handling and Logging:*
+- Improved error handling across modules, with comprehensive logging for easier troubleshooting.
+- Enhanced System Log viewer with log level filters and search functionality.
+
+**User Interface and Usability**
+
+*Reduced Application Size:*
+
+- Optimized the codebase, reducing the overall size by approximately 50%.
+- Simplified GUI code while adding new features, ensuring a cleaner and more maintainable codebase.
+
+*Improved Device Management:*
+- Streamlined device management dialogs (add, edit, delete) for easier interaction.
+- Correctly tracks and highlights acknowledged devices in the Treeview.
+
+*Enhanced Visual Feedback:*
+- Improved visual indicators in the Treeview for device statuses, with color-coding for reachable and unreachable devices.
+- Added a countdown timer and progress bar for refresh intervals, giving users clear feedback on the next check.
+
+**Environment Setup**
+
+*Automated Setup:*
+- Automated environment setup ensures all necessary Python packages are installed.
+- Added firewall configuration steps for both Windows and Linux to allow Syslog traffic on UDP port 514.
+
+## Known Bugs
+- SNMP causing coroutine errors.
+- Need to update the wiki.
+  
 ## Future Plans
 - Detailed Device Views: Implement functionality for users to click on a device in the list and display detailed information or statistics in a separate dialog or pane.
 - Input Validation: Implement rigorous input validation to secure against potential injection attacks, particularly for inputs affecting network operations or subprocess invocations.
-- SNMP Integration: Introduce an SNMP check to verify that a device is operational before attempting to ping it.
-- SQLite Integration: Develop a more effective format for managing logs and syslogs using SQLite for improved storage and retrieval.
-- Simple FTP Server: Build a basic FTP server to facilitate file transfers within the network.
 - Penetration Testing: Conduct penetration testing to identify and address potential security vulnerabilities.
 
 ## Contributing
