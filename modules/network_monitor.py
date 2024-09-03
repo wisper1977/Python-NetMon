@@ -1,3 +1,8 @@
+# Network Monitor App
+# network_monitor.py
+# version: 1.2
+# description: Handles the monitoring of network devices, including performing ping and SNMP checks and updating device status in the GUI.
+
 import threading
 import asyncio
 from modules.gui_utils import GUIUtils

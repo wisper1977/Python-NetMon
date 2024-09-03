@@ -1,3 +1,8 @@
+# Network Monitor App
+# application_gui.py
+# version: 1.2
+# description: Contains the main GUI logic for the Network Monitor application, including the setup of menus, the device treeview, and the refresh clock.
+
 import pygame
 import queue
 import tkinter as tk

@@ -1,3 +1,8 @@
+# Network Monitor App
+# setup_env.py
+# version: 1.2
+# description: Performs the initial setup and environment configuration for the Network Monitor application, such as creating necessary directories and initializing the database.
+
 import os
 import subprocess
 import sys

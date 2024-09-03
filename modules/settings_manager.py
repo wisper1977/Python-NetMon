@@ -1,3 +1,8 @@
+# Network Monitor App
+# settings_manager.py
+# version: 1.2
+# description: Handles the loading and saving of application settings from a configuration file.
+
 import configparser
 from tkinter import Toplevel, Label, Entry, Button, messagebox
 from modules.system_log import SystemLog

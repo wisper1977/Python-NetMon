@@ -1,3 +1,8 @@
+# Network Monitor App
+# device_manager.py
+# version: 1.2
+# description: Handles the logic for managing devices in the network monitoring system, including adding, editing, deleting, and retrieving device data from the database.
+
 from modules.db_operations import DatabaseOperations
 from modules.system_log import SystemLog
 

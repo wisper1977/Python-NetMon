@@ -1,3 +1,8 @@
+# Network Monitor App
+# device_manager_gui.py
+# version: 1.2
+# description: Manages the GUI interactions for adding, editing, and deleting devices from the network monitoring system.
+
 import threading
 from tkinter import Toplevel, Label, Entry, Button, messagebox
 from modules.device_manager import DeviceManager

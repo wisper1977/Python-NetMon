@@ -1,3 +1,8 @@
+# Network Monitor App
+# net_ops_ping.py
+# version: 1.2
+# description: Provides the functionality for performing ping operations to check the availability of network devices.
+
 import subprocess
 from modules.system_log import SystemLog
 

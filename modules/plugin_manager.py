@@ -1,3 +1,8 @@
+# Network Monitor App
+# plugin_manager.py
+# version: 1.2
+# description: Manages the loading and initialization of plugins for the Network Monitor application.
+
 import os
 import importlib.util
 

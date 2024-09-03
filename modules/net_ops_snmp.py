@@ -1,3 +1,8 @@
+# Network Monitor App
+# net_ops_snmp.py
+# version: 1.2
+# description: Provides the functionality for performing SNMP operations to retrieve information from network devices.
+
 from pysnmp.hlapi.asyncio import getCmd, CommunityData, UdpTransportTarget, ContextData, ObjectType, ObjectIdentity, SnmpEngine
 import asyncio
 

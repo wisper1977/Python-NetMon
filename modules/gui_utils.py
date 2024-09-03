@@ -1,4 +1,7 @@
-# modules/gui_utils.py
+# Network Monitor App
+# gui_utils.py
+# version: 1.2
+# description: Contains utility functions to support GUI operations, such as setting icons, handling common dialog actions, and playing alert sounds.
 
 import webbrowser, pygame
 import tkinter as tk
