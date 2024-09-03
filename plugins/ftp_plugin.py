@@ -1,3 +1,8 @@
+# Network Monitor App
+# ftp_plugin.py
+# version: 1.2
+# description: Plugin that provides FTP server functionality, allowing users to start and stop an FTP server through the Network Monitor application.
+
 import tkinter as tk
 from tkinter import messagebox, filedialog
 from pyftpdlib.authorizers import DummyAuthorizer

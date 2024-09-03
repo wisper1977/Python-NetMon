@@ -1,7 +1,7 @@
-# Speedtest Plugin
+# Network Monitor App
 # speedtest_plugin.py
 # version: 1.2
-# description:
+# description: Plugin that performs speed tests on the network and displays the results within the Network Monitor application.
 
 import threading
 import tkinter as tk

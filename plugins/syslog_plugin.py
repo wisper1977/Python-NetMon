@@ -1,7 +1,7 @@
-#Syslog Server Plugin
-#syslog.py
-#version: 1.2
-#description:
+# Network Monitor App
+# syslog_plugin.py
+# version: 1.2
+# description: Plugin that integrates with a syslog server, allowing the Network Monitor application to collect and display syslog messages.
 
 import threading
 import socket
