@@ -131,7 +131,6 @@ Please check out the [Wiki](https://github.com/wisper1977/Python-NetMon/wiki) to
 - Added firewall configuration steps for both Windows and Linux to allow Syslog traffic on UDP port 514.
 
 ## Known Bugs
-- SNMP causing coroutine errors.
 - Need to update the wiki.
   
 ## Future Plans
