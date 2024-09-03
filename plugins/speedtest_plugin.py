@@ -7,6 +7,7 @@ import threading
 import tkinter as tk
 import speedtest
 from tkinter import Toplevel, Label, Button, messagebox
+from modules.gui_utils import GUIUtils
 
 class SpeedTestPlugin:
     def __init__(self, app):
@@ -18,7 +19,7 @@ class SpeedTestPlugin:
         """Run the speed test and update the GUI with the results."""
         self.speed_test_window = Toplevel(self.app.root)
         self.speed_test_window.title("Speed Test")
-        self.app.set_icon(self.speed_test_window)
+        GUIUtils.set_icon(self.speed_test_window)
 
         Label(self.speed_test_window, text="Running speed test...").pack(pady=10)
 

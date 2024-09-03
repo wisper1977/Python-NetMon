@@ -8,6 +8,7 @@ import socket
 import sqlite3
 import tkinter as tk
 from tkinter import Toplevel, Text, Scrollbar, VERTICAL, RIGHT, Y, END, Label, Entry, Button
+from modules.gui_utils import GUIUtils
 
 class SysLogPlugin:
     def __init__(self, app, db_path='database/network_monitor.db'):
@@ -96,7 +97,7 @@ class SysLogPlugin:
         """Show the SysLog GUI window with filtering options."""
         log_window = Toplevel(self.app.root)
         log_window.title("SysLog Viewer")
-        self.app.set_icon(log_window)
+        GUIUtils.set_icon(log_window)
 
         # Filter frame
         filter_frame = tk.Frame(log_window)

@@ -3,6 +3,7 @@ from tkinter import messagebox, filedialog
 from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
+from modules.gui_utils import GUIUtils
 
 class FTPServerPlugin:
     def __init__(self, root):
@@ -85,6 +86,6 @@ def open_ftp_server_window(root):
     ftp_window.geometry("400x200")  # Set a reasonable default size for the window
     
     # Set the custom icon
-    ftp_window.iconbitmap('media/NetMon.ico') 
+    GUIUtils.set_icon(ftp_window)
     
     FTPServerPlugin(ftp_window)
