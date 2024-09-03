@@ -6,13 +6,14 @@
 import pygame
 import queue
 import tkinter as tk
-from tkinter import Menu, Label
+from tkinter import Menu
 from tkinter import ttk
 from modules.plugin_manager import PluginManager
 from modules.system_log_gui import SystemLogGUI
 from modules.network_monitor import NetworkMonitor 
 from modules.device_manager_gui import DeviceManagerGUI
-from modules.gui_utils import GUIUtils  # Import the utility class
+from modules.gui_utils import GUIUtils
+from modules.refresh_clock import RefreshClock  # Import the RefreshClock class
 
 class ApplicationGUI:
     def __init__(self, root, app):
@@ -20,7 +21,7 @@ class ApplicationGUI:
         self.app = app
         self.update_queue = queue.Queue()
         self.device_manager_gui = DeviceManagerGUI(app)
-        self.network_monitor = NetworkMonitor(app, self.update_queue, self.device_manager_gui) 
+        self.network_monitor = NetworkMonitor(app, self.update_queue, self.device_manager_gui)
         
         # Initialize other components that rely on app's settings
         self.settings_manager = app.settings_manager
@@ -40,7 +41,9 @@ class ApplicationGUI:
 
         self.setup_menu()
         self.setup_treeview()
-        self.setup_refresh_clock()
+
+        # Initialize the refresh clock
+        self.refresh_clock = RefreshClock(self.root, self.network_monitor, self.network_monitor.start_monitoring)
         
         self.timer_running = False  # Control flag for the countdown timer
 
@@ -136,7 +139,7 @@ class ApplicationGUI:
             
             # Determine the color based on status and acknowledgment
             if last_status == "Unreachable":
-                if device_id in self.network_monitor.acknowledged_devices:  # Ensure this uses the correct reference to acknowledged devices
+                if device_id in self.network_monitor.acknowledged_devices:
                     self.tree.insert("", "end", values=(device_id, name, ip_address, location, device_type, snmp_status, ping_status, last_status), tags=('acknowledged',))
                 else:
                     self.tree.insert("", "end", values=(device_id, name, ip_address, location, device_type, snmp_status, ping_status, last_status), tags=('unreachable',))
@@ -170,28 +173,6 @@ class ApplicationGUI:
                 self.network_monitor.acknowledged_devices.add(device_id)
                 self.update_treeview_with_devices(self.device_manager_gui.device_manager.get_all_devices())
 
-    def setup_refresh_clock(self):
-        self.refresh_label = Label(self.root, text="Next refresh in:")
-        self.refresh_label.pack()
-
-        self.progress_bar = ttk.Progressbar(self.root, maximum=self.network_monitor.refresh_interval // 1000, length=300)
-        self.progress_bar.pack()
-        self.progress_bar['value'] = self.network_monitor.remaining_time
-
-        self._run_refresh_clock()
-
-    def _run_refresh_clock(self):
-        if self.network_monitor.remaining_time <= 0:
-            self.network_monitor.remaining_time = self.network_monitor.refresh_interval // 1000
-            # Trigger the actual refresh
-            self.network_monitor.start_monitoring()
-        
-        self.network_monitor.remaining_time -= 1
-        self.refresh_label.config(text=f"Next refresh in: {self.network_monitor.remaining_time} seconds")
-        self.progress_bar['value'] = self.network_monitor.remaining_time
-
-        self.root.after(1000, self._run_refresh_clock)
-        
     def update_device_status(self, device_id, snmp_status, ping_status, overall_status):
         """Updates the status of a device in the Treeview."""
         for item in self.tree.get_children():
@@ -199,8 +180,3 @@ class ApplicationGUI:
             if str(values[0]) == str(device_id):
                 self.tree.item(item, values=(device_id, values[1], values[2], values[3], values[4], snmp_status, ping_status, overall_status))
                 break
-
-    def update_refresh_clock_display(self, remaining_time):
-        """Update the refresh clock display."""
-        self.refresh_label.config(text=f"Next refresh in: {remaining_time} seconds")
-        self.progress_bar['value'] = remaining_time

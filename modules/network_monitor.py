@@ -25,7 +25,6 @@ class NetworkMonitor:
         self.acknowledged_devices = set()
 
         self.refresh_interval = self.settings_manager.config.getint('Network', 'refreshinterval') * 1000
-        self.remaining_time = self.refresh_interval // 1000  # Initial time in seconds
 
     def monitor_devices(self):
         devices = self.device_manager_gui.device_manager.get_all_devices()
@@ -98,4 +97,3 @@ class NetworkMonitor:
     def start_monitoring(self):
         threading.Thread(target=self.monitor_devices, daemon=True).start()
         self.update_queue.put(self.app.gui.schedule_next_check)
-        self.update_queue.put(lambda: self.app.gui.update_refresh_clock_display(self.remaining_time))
