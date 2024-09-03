@@ -1,6 +1,7 @@
 import tkinter as tk
-from tkinter import Toplevel, Label, Text, Scrollbar, RIGHT, Y, END, filedialog
-from modules.system_log import SystemLog
+import threading
+from tkinter import filedialog, Scrollbar, Text, Toplevel, END, RIGHT, Y
+from modules.gui_utils import GUIUtils
 
 class SystemLogGUI:
     def __init__(self, root, config, logger):
@@ -12,7 +13,7 @@ class SystemLogGUI:
         # Create the log window
         log_window = Toplevel(self.root)
         log_window.title("System Log")
-        self.set_icon(log_window)
+        GUIUtils.set_icon(log_window)  # Use the utility method
 
         # Create filter frame
         filter_frame = tk.Frame(log_window)
@@ -32,7 +33,7 @@ class SystemLogGUI:
         search_entry.pack(side=tk.LEFT, padx=5)
 
         # Refresh button
-        refresh_button = tk.Button(filter_frame, text="Refresh", command=lambda: self.refresh_logs(log_text, log_level_var.get(), search_var.get()))
+        refresh_button = tk.Button(filter_frame, text="Refresh", command=lambda: self.fetch_logs_in_background(log_text, log_level_var.get(), search_var.get()))
         refresh_button.pack(side=tk.LEFT, padx=10)
 
         # Save button
@@ -47,7 +48,11 @@ class SystemLogGUI:
         log_text.pack(fill="both", expand=True)
 
         # Load and display logs
-        self.refresh_logs(log_text, log_level_var.get(), search_var.get())
+        self.fetch_logs_in_background(log_text, log_level_var.get(), search_var.get())
+
+    def fetch_logs_in_background(self, log_text, log_level, search_term):
+        """Fetch logs in a background thread to keep the UI responsive."""
+        threading.Thread(target=self.refresh_logs, args=(log_text, log_level, search_term), daemon=True).start()
 
     def refresh_logs(self, log_text, log_level, search_term):
         log_text.delete(1.0, END)  # Clear the current logs
@@ -81,7 +86,3 @@ class SystemLogGUI:
         if file_path:
             with open(file_path, 'w') as file:
                 file.write(log_text.get(1.0, END))
-
-    def set_icon(self, window):
-        """Sets the application icon for the provided window."""
-        window.iconbitmap('media/NetMon.ico')

@@ -1,5 +1,7 @@
+import threading
 from tkinter import Toplevel, Label, Entry, Button, messagebox
 from modules.device_manager import DeviceManager
+from modules.gui_utils import GUIUtils  # Import the utility class
 
 class DeviceManagerGUI:
     def __init__(self, app):
@@ -21,7 +23,7 @@ class DeviceManagerGUI:
     def ask_for_device_id(self):
         dialog = Toplevel(self.app.gui.root)
         dialog.title("Enter Device ID")
-        self.app.gui.set_icon(dialog)
+        GUIUtils.set_icon(dialog)  # Use the utility method
 
         Label(dialog, text="Device ID:").grid(row=0, column=0, padx=10, pady=5)
         id_entry = Entry(dialog)
@@ -44,9 +46,8 @@ class DeviceManagerGUI:
 
     def device_dialog(self, title, action, include_id=False, only_id=False, device_info=None):
         dialog = Toplevel(self.app.gui.root)
-        self.app.gui.set_icon(dialog)
+        GUIUtils.set_icon(dialog)  # Use the utility method
         dialog.title(title)
-        self.app.gui.set_icon(dialog)
 
         if include_id:
             Label(dialog, text="Device ID:").grid(row=0, column=0, padx=10, pady=5)
@@ -82,14 +83,14 @@ class DeviceManagerGUI:
                     messagebox.showerror(title, "Device ID is required")
                     return
                 if only_id:
-                    action(device_id)
+                    self.perform_action_in_background(action, device_id)
                 else:
                     name = name_entry.get()
                     ip_address = ip_entry.get()
                     location = location_entry.get()
                     device_type = type_entry.get()
                     if name and ip_address and location and device_type:
-                        action(device_id, name, ip_address, location, device_type)
+                        self.perform_action_in_background(action, device_id, name, ip_address, location, device_type)
                     else:
                         messagebox.showerror(title, "All fields are required")
                         return
@@ -99,12 +100,22 @@ class DeviceManagerGUI:
                 location = location_entry.get()
                 device_type = type_entry.get()
                 if name and ip_address and location and device_type:
-                    action(name, ip_address, location, device_type)
+                    self.perform_action_in_background(action, name, ip_address, location, device_type)
                 else:
                     messagebox.showerror(title, "All fields are required")
                     return
             dialog.destroy()
-            messagebox.showinfo(title, f"{title} completed successfully.")
-            self.app.gui.update_treeview_with_devices(self.device_manager.get_all_devices())
 
         Button(dialog, text="Submit", command=submit).grid(row=5 if include_id else 4, column=0, columnspan=2, pady=10)
+
+    def perform_action_in_background(self, action, *args):
+        """Run the device action in a background thread to keep the UI responsive."""
+        def run_action():
+            try:
+                action(*args)
+                messagebox.showinfo("Success", f"Action completed successfully.")
+                self.app.gui.update_treeview_with_devices(self.device_manager.get_all_devices())
+            except Exception as e:
+                messagebox.showerror("Error", f"An error occurred: {str(e)}")
+
+        threading.Thread(target=run_action, daemon=True).start()

@@ -1,5 +1,6 @@
 import threading
 import asyncio
+from modules.gui_utils import GUIUtils
 
 class NetworkMonitor:
     def __init__(self, app, update_queue, device_manager_gui):
@@ -87,7 +88,7 @@ class NetworkMonitor:
 
         # Trigger alert sound if device is unreachable and not acknowledged
         if overall_status == "Unreachable" and device_id not in self.acknowledged_devices:
-            self.update_queue.put(self.app.gui.play_alert_sound)
+            self.update_queue.put(lambda: GUIUtils.play_alert_sound('media/alert.wav'))
 
     def start_monitoring(self):
         threading.Thread(target=self.monitor_devices, daemon=True).start()
