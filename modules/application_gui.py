@@ -54,8 +54,6 @@ class ApplicationGUI:
         # Explicitly load devices into the Treeview
         self.update_treeview_with_devices(self.device_manager_gui.device_manager.get_all_devices())
 
-        pygame.mixer.init()  # Initialize the mixer for sound playback
-
         # Dynamically load and initialize plugins using PluginManager
         self.plugin_manager = PluginManager('plugins')
         self.plugin_manager.load_plugins(self)
@@ -118,6 +116,14 @@ class ApplicationGUI:
         self.tree.pack(fill=tk.BOTH, expand=True)
         self.tree.bind("<Double-1>", self.on_double_click)
 
+    def update_device_status(self, device_id, snmp_status, ping_status, overall_status):
+        """Updates the status of a device in the Treeview."""
+        for item in self.tree.get_children():
+            values = self.tree.item(item, "values")
+            if str(values[0]) == str(device_id):
+                self.tree.item(item, values=(device_id, values[1], values[2], values[3], values[4], snmp_status, ping_status, overall_status))
+                break
+            
     def update_treeview_with_devices(self, devices):
         """Update the Treeview with the loaded devices, sorting unreachable ones to the top and highlighting their rows."""
         if devices is None:
@@ -159,11 +165,7 @@ class ApplicationGUI:
         except queue.Empty:
             pass
         self.root.after(100, self.process_queue)  # Continue processing
-
-    def schedule_next_check(self):
-        """Schedule the next device monitoring check."""
-        self.root.after(self.network_monitor.refresh_interval, self.network_monitor.start_monitoring)
-            
+         
     def on_double_click(self, event):
         item = self.tree.identify_row(event.y)
         if item:
@@ -172,11 +174,3 @@ class ApplicationGUI:
                 device_id = int(device_id)
                 self.network_monitor.acknowledged_devices.add(device_id)
                 self.update_treeview_with_devices(self.device_manager_gui.device_manager.get_all_devices())
-
-    def update_device_status(self, device_id, snmp_status, ping_status, overall_status):
-        """Updates the status of a device in the Treeview."""
-        for item in self.tree.get_children():
-            values = self.tree.item(item, "values")
-            if str(values[0]) == str(device_id):
-                self.tree.item(item, values=(device_id, values[1], values[2], values[3], values[4], snmp_status, ping_status, overall_status))
-                break

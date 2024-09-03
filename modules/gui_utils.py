@@ -48,8 +48,9 @@ class GUIUtils:
             root.destroy()
 
     @staticmethod
-    def play_alert_sound(alert_sound='media/alert.wav'):
-        """Plays the alert sound if not already playing."""
+    def play_alert_sound(alert_sound_path):
+        if not pygame.mixer.get_init():
+            pygame.mixer.init()  # Initialize the mixer for sound playback
         if not pygame.mixer.music.get_busy():
-            pygame.mixer.music.load(alert_sound)
+            pygame.mixer.music.load(alert_sound_path)
             pygame.mixer.music.play()

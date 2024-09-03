@@ -96,4 +96,8 @@ class NetworkMonitor:
 
     def start_monitoring(self):
         threading.Thread(target=self.monitor_devices, daemon=True).start()
-        self.update_queue.put(self.app.gui.schedule_next_check)
+        self.update_queue.put(self.schedule_next_check)
+
+    def schedule_next_check(self):
+        """Schedule the next device monitoring check."""
+        self.app.gui.root.after(self.refresh_interval, self.start_monitoring)
