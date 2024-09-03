@@ -1,3 +1,5 @@
+import configparser
+import os
 import tkinter as tk
 from modules.setup_env import setup_environment  # Import the setup script
 from modules.db_operations import DatabaseOperations
@@ -6,8 +8,7 @@ from modules.system_log import SystemLog
 from modules.net_ops_ping import NetOpsPing  # Import the NetOpsPing class
 from modules.net_ops_snmp import NetOpsSNMP  # Import the NetOpsSNMP class
 from modules.settings_manager import SettingsManager  # Import SettingsManager
-import configparser
-import os
+from modules.gui_utils import GUIUtils  # Import GUIUtils
 
 class NetworkMonitorApp:
     def __init__(self, root):
@@ -60,7 +61,7 @@ class NetworkMonitorApp:
 
     def on_exit(self):
         self.logger.log("INFO", "Application exited")
-        self.root.quit()
+        GUIUtils.on_exit(self.root)
 
 if __name__ == "__main__":
     root = tk.Tk()
