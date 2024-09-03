@@ -66,7 +66,7 @@ Please check out the [Wiki](https://github.com/wisper1977/Python-NetMon/wiki) to
 ## Version History
 
 ### v1.2 - SNMP, SQLLite, Plugins
-**Release Date:** Dev
+**Release Date:** 9/2/2024
 
 **Core Enhancements**
 
@@ -132,6 +132,7 @@ Please check out the [Wiki](https://github.com/wisper1977/Python-NetMon/wiki) to
 
 ## Known Bugs
 - SNMP causing coroutine errors.
+- Need to update the wiki.
   
 ## Future Plans
 - Detailed Device Views: Implement functionality for users to click on a device in the list and display detailed information or statistics in a separate dialog or pane.
