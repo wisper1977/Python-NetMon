@@ -1,14 +1,19 @@
+# Network Monitor App
+# netmon.py
+# version: 1.2
+# description: Entry point for the Network Monitor application. Initializes and runs the main application loop.
+
 import configparser
 import os
 import tkinter as tk
 from modules.setup_env import setup_environment  # Import the setup script
-from modules.db_operations import DatabaseOperations
-from modules.application_gui import ApplicationGUI
-from modules.system_log import SystemLog
+from modules.db_operations import DatabaseOperations  # Import the DatabaseOperations class
+from modules.application_gui import ApplicationGUI   # Import the ApplicationGUI class
+from modules.system_log import SystemLog  # Import the SystemLog class
 from modules.net_ops_ping import NetOpsPing  # Import the NetOpsPing class
 from modules.net_ops_snmp import NetOpsSNMP  # Import the NetOpsSNMP class
-from modules.settings_manager import SettingsManager  # Import SettingsManager
-from modules.gui_utils import GUIUtils  # Import GUIUtils
+from modules.settings_manager import SettingsManager  # Import SettingsManager class
+from modules.gui_utils import GUIUtils  # Import GUIUtils class
 
 class NetworkMonitorApp:
     def __init__(self, root):
