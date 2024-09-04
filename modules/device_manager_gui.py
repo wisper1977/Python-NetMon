@@ -4,14 +4,30 @@
 # description: Manages the GUI interactions for adding, editing, and deleting devices from the network monitoring system.
 
 import threading
+import time
+import queue
 from tkinter import Toplevel, Label, Entry, Button, messagebox
 from modules.device_manager import DeviceManager
 from modules.gui_utils import GUIUtils  # Import the utility class
+import sqlite3
 
 class DeviceManagerGUI:
     def __init__(self, app):
         self.app = app
         self.device_manager = DeviceManager(self.app.db_ops, self.app.logger)
+        self.ui_task_queue = queue.Queue()  # Queue to handle UI updates in the main thread
+
+    def process_ui_queue(self):
+        """Process tasks from the UI queue in the main thread."""
+        try:
+            while not self.ui_task_queue.empty():
+                task = self.ui_task_queue.get_nowait()
+                task()  # Execute the task (this will be a function)
+        except queue.Empty:
+            pass
+
+        # Continue processing tasks every 100ms
+        self.app.gui.root.after(100, self.process_ui_queue)
 
     def add_device_dialog(self):
         self.device_dialog("Add Device", self.device_manager.add_device)
@@ -23,7 +39,7 @@ class DeviceManagerGUI:
             if device:
                 self.device_dialog("Edit Device", self.device_manager.edit_device, include_id=True, device_info=device)
             else:
-                messagebox.showerror("Edit Device", "Device not found.")
+                self.ui_task_queue.put(lambda: messagebox.showerror("Edit Device", "Device not found."))
 
     def ask_for_device_id(self):
         dialog = Toplevel(self.app.gui.root)
@@ -85,7 +101,7 @@ class DeviceManagerGUI:
             if include_id:
                 device_id = id_entry.get()
                 if not device_id:
-                    messagebox.showerror(title, "Device ID is required")
+                    self.ui_task_queue.put(lambda: messagebox.showerror(title, "Device ID is required"))
                     return
                 if only_id:
                     self.perform_action_in_background(action, device_id)
@@ -97,7 +113,7 @@ class DeviceManagerGUI:
                     if name and ip_address and location and device_type:
                         self.perform_action_in_background(action, device_id, name, ip_address, location, device_type)
                     else:
-                        messagebox.showerror(title, "All fields are required")
+                        self.ui_task_queue.put(lambda: messagebox.showerror(title, "All fields are required"))
                         return
             else:
                 name = name_entry.get()
@@ -107,7 +123,7 @@ class DeviceManagerGUI:
                 if name and ip_address and location and device_type:
                     self.perform_action_in_background(action, name, ip_address, location, device_type)
                 else:
-                    messagebox.showerror(title, "All fields are required")
+                    self.ui_task_queue.put(lambda: messagebox.showerror(title, "All fields are required"))
                     return
             dialog.destroy()
 
@@ -117,10 +133,32 @@ class DeviceManagerGUI:
         """Run the device action in a background thread to keep the UI responsive."""
         def run_action():
             try:
-                action(*args)
-                messagebox.showinfo("Success", f"Action completed successfully.")
-                self.app.gui.update_treeview_with_devices(self.device_manager.get_all_devices())
+                self.execute_action_with_retry(action, *args)
+                # Schedule messagebox and treeview update in the UI task queue
+                self.ui_task_queue.put(self.show_success_message)
+                self.ui_task_queue.put(lambda: self.app.gui.update_treeview_with_devices(self.device_manager.get_all_devices()))
             except Exception as e:
-                messagebox.showerror("Error", f"An error occurred: {str(e)}")
+                # Schedule error message in the UI task queue
+                self.ui_task_queue.put(lambda: self.show_error_message(e))
 
         threading.Thread(target=run_action, daemon=True).start()
+
+    def show_success_message(self):
+        """Show the success message."""
+        messagebox.showinfo("Success", "Action completed successfully.")
+
+    def show_error_message(self, e):
+        """Show the error message."""
+        messagebox.showerror("Error", f"An error occurred: {str(e)}")
+
+    def execute_action_with_retry(self, action, *args, retry_count=5, delay=0.1):
+        """Execute the database action with retry in case of 'database locked' error."""
+        for attempt in range(retry_count):
+            try:
+                action(*args)
+                break  # If successful, break out of the retry loop
+            except sqlite3.OperationalError as e:
+                if "database is locked" in str(e) and attempt < retry_count - 1:
+                    time.sleep(delay)  # Wait before retrying
+                else:
+                    raise  # If retries are exhausted, raise the error

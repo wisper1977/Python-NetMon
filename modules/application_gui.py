@@ -58,6 +58,9 @@ class ApplicationGUI:
         self.plugin_manager = PluginManager('plugins')
         self.plugin_manager.load_plugins(self)
 
+        # Set up the processing of the UI task queue after GUI initialization
+        self.root.after(100, self.device_manager_gui.process_ui_queue)
+
     def add_tool_menu(self, label, command):
         """Add a command to the Tools menu."""
         self.toolsmenu.add_command(label=label, command=command)
