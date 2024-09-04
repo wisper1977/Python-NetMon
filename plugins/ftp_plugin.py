@@ -6,7 +6,7 @@
 import tkinter as tk
 from tkinter import messagebox, filedialog
 from pyftpdlib.authorizers import DummyAuthorizer
-from pyftpdlib.handlers import FTPHandler
+from pyftpdlib.handlers import FTPHandler  # Use only FTPHandler for now
 from pyftpdlib.servers import FTPServer
 from modules.gui_utils import GUIUtils
 import threading
@@ -36,21 +36,29 @@ class FTPServerPlugin:
         self.port_entry.grid(row=0, column=1, padx=10, pady=10)
         self.port_entry.insert(0, "21")
 
-        tk.Label(self.frame, text="Root Directory:").grid(row=1, column=0, padx=10, pady=10)
+        tk.Label(self.frame, text="Username:").grid(row=1, column=0, padx=10, pady=10)
+        self.username_entry = tk.Entry(self.frame)
+        self.username_entry.grid(row=1, column=1, padx=10, pady=10)
+
+        tk.Label(self.frame, text="Password:").grid(row=2, column=0, padx=10, pady=10)
+        self.password_entry = tk.Entry(self.frame, show="*")
+        self.password_entry.grid(row=2, column=1, padx=10, pady=10)
+
+        tk.Label(self.frame, text="Root Directory:").grid(row=3, column=0, padx=10, pady=10)
         self.root_dir_entry = tk.Entry(self.frame)
-        self.root_dir_entry.grid(row=1, column=1, padx=10, pady=10)
+        self.root_dir_entry.grid(row=3, column=1, padx=10, pady=10)
         self.browse_button = tk.Button(self.frame, text="Browse", command=self.browse_directory)
-        self.browse_button.grid(row=1, column=2, padx=10, pady=10)
+        self.browse_button.grid(row=3, column=2, padx=10, pady=10)
 
         # Load saved root directory if it exists
         if self.config.has_option('FTP', 'root_dir'):
             self.root_dir_entry.insert(0, self.config.get('FTP', 'root_dir'))
 
         self.start_button = tk.Button(self.frame, text="Start FTP Server", command=self.start_server)
-        self.start_button.grid(row=2, column=0, columnspan=2, pady=10)
+        self.start_button.grid(row=4, column=0, columnspan=2, pady=10)
 
         self.stop_button = tk.Button(self.frame, text="Stop FTP Server", command=self.stop_server)
-        self.stop_button.grid(row=2, column=2, padx=10, pady=10)
+        self.stop_button.grid(row=4, column=2, padx=10, pady=10)
         self.stop_button.config(state=tk.DISABLED)
 
     def check_config_file(self):
@@ -96,14 +104,20 @@ class FTPServerPlugin:
 
         port = int(self.port_entry.get())
         root_dir = self.root_dir_entry.get()
+        username = self.username_entry.get()
+        password = self.password_entry.get()
 
         if not root_dir:
             messagebox.showerror("Error", "Please select a root directory")
             return
 
-        # Set up the FTP server
+        if not username or not password:
+            messagebox.showerror("Error", "Please enter a username and password")
+            return
+
+        # Set up the FTP server with user authentication
         authorizer = DummyAuthorizer()
-        authorizer.add_anonymous(root_dir, perm="elradfmw")
+        authorizer.add_user(username, password, root_dir, perm="elradfmw")  # Change permissions as needed
 
         handler = FTPHandler
         handler.authorizer = authorizer
@@ -147,7 +161,7 @@ def open_ftp_server_window(root):
     """Open the FTP Server Plugin GUI in a new Toplevel window."""
     ftp_window = tk.Toplevel(root)
     ftp_window.title("FTP Server")
-    ftp_window.geometry("400x200")  # Set a reasonable default size for the window
+    ftp_window.geometry("400x250")  # Adjusted size for added fields
     
     # Set the custom icon
     GUIUtils.set_icon(ftp_window)
