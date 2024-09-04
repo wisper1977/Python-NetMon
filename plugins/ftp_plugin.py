@@ -9,12 +9,14 @@ from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
 from modules.gui_utils import GUIUtils
+import threading
 
 class FTPServerPlugin:
     def __init__(self, root):
         self.root = root
         self.server = None
         self.server_thread = None
+        self.is_running = False
 
         self.frame = tk.Frame(self.root)
         self.frame.pack(fill=tk.BOTH, expand=True)
@@ -44,6 +46,10 @@ class FTPServerPlugin:
             self.root_dir_entry.insert(0, directory)
 
     def start_server(self):
+        if self.is_running:
+            messagebox.showinfo("FTP Server", "Server is already running.")
+            return
+
         port = int(self.port_entry.get())
         root_dir = self.root_dir_entry.get()
 
@@ -60,22 +66,31 @@ class FTPServerPlugin:
 
         self.server = FTPServer(("0.0.0.0", port), handler)
 
-        # Start the server
-        self.server_thread = self.server.serve_forever
+        # Start the server in a separate thread to avoid freezing the GUI
+        self.server_thread = threading.Thread(target=self.run_server, daemon=True)
+        self.server_thread.start()
+
         self.start_button.config(state=tk.DISABLED)
         self.stop_button.config(state=tk.NORMAL)
 
-        self.root.after(100, self.server_thread)
-
+        self.is_running = True
         messagebox.showinfo("FTP Server", f"FTP server started on port {port}")
 
-    def stop_server(self):
+    def run_server(self):
+        """Run the FTP server in a separate thread."""
         if self.server:
+            self.server.serve_forever()
+
+    def stop_server(self):
+        if self.server and self.is_running:
             self.server.close_all()
+            self.is_running = False
             self.server = None
             self.start_button.config(state=tk.NORMAL)
             self.stop_button.config(state=tk.DISABLED)
             messagebox.showinfo("FTP Server", "FTP server stopped")
+        else:
+            messagebox.showinfo("FTP Server", "Server is not running.")
 
 def init_plugin(application):
     """Initialize the plugin and add it to the Tools menu."""
