@@ -1,11 +1,7 @@
-# Network Monitor App
-# db_operations.py
-# version: 1.2
-# description: Manages database operations for the Network Monitor application, including CRUD operations for devices, logs, and other relevant data.
-
 import sqlite3
 import threading
 import csv
+import time
 
 class DatabaseOperations:
     def __init__(self, db_path='database/network_monitor.db'):
@@ -16,34 +12,41 @@ class DatabaseOperations:
 
     def create_connection(self):
         conn = sqlite3.connect(self.db_path, timeout=10)
-        conn.execute('PRAGMA journal_mode=WAL;')
+        conn.execute('PRAGMA journal_mode=WAL;')  # Enable write-ahead logging for better concurrency
         return conn, conn.cursor()
 
-    def execute_query(self, query, params=None):
-        with self.lock:
-            conn, cursor = self.create_connection()
-            try:
-                if params:
-                    cursor.execute(query, params)
-                else:
-                    cursor.execute(query)
-                
-                if query.strip().upper().startswith("SELECT"):
-                    result = cursor.fetchall()
-                    return result
+    def execute_query(self, query, params=None, retry_count=5, delay=0.5):
+        """Execute a query with retry logic in case the database is locked."""
+        for attempt in range(retry_count):
+            with self.lock:
+                conn, cursor = self.create_connection()
+                try:
+                    if params:
+                        cursor.execute(query, params)
+                    else:
+                        cursor.execute(query)
 
-                conn.commit()
-            except sqlite3.DatabaseError as e:
-                conn.rollback()
-                raise e
-            finally:
-                cursor.close()
-                conn.close()
+                    # For SELECT queries, fetch results
+                    if query.strip().upper().startswith("SELECT"):
+                        result = cursor.fetchall()
+                        return result
+
+                    # Commit for non-SELECT queries
+                    conn.commit()
+                    break  # Exit loop if successful
+                except sqlite3.OperationalError as e:
+                    if "database is locked" in str(e) and attempt < retry_count - 1:
+                        print(f"Database is locked, retrying in {delay} seconds...")
+                        time.sleep(delay)  # Wait and retry
+                    else:
+                        conn.rollback()
+                        raise e  # Rethrow if retries are exhausted or another error occurred
+                finally:
+                    cursor.close()
+                    conn.close()
 
     def create_tables(self):
-        conn, cursor = self.create_connection()
-        
-        cursor.execute('''
+        query1 = '''
             CREATE TABLE IF NOT EXISTS devices (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT,
@@ -55,9 +58,8 @@ class DatabaseOperations:
                 snmp_status TEXT,
                 ping_status TEXT
             )
-        ''')
-
-        cursor.execute('''
+        '''
+        query2 = '''
             CREATE TABLE IF NOT EXISTS status_log (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 device_id INTEGER,
@@ -66,26 +68,24 @@ class DatabaseOperations:
                 timestamp TIMESTAMP,
                 FOREIGN KEY(device_id) REFERENCES devices(id)
             )
-        ''')
-
-        cursor.execute('''
+        '''
+        query3 = '''
             CREATE TABLE IF NOT EXISTS program_logs (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 log_message TEXT,
                 timestamp TIMESTAMP
             )
-        ''')
-
-        conn.commit()
-        cursor.close()
-        conn.close()
+        '''
+        self.execute_query(query1)
+        self.execute_query(query2)
+        self.execute_query(query3)
 
     def ensure_google_device(self):
-        # Check if the devices table is empty
+        """Ensure that the Google DNS device is present in the devices table."""
         query = "SELECT COUNT(*) FROM devices"
         result = self.execute_query(query)
-        if result[0][0] == 0:  # If the count is 0, the table is empty
-            # Insert the Google device
+        if result[0][0] == 0:
+            # Insert the Google device if the table is empty
             self.execute_query(
                 "INSERT INTO devices (name, ip_address, location, type) VALUES (?, ?, ?, ?)",
                 ('Google', '8.8.8.8', 'Internet', 'DNS')
