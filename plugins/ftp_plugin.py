@@ -10,13 +10,23 @@ from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
 from modules.gui_utils import GUIUtils
 import threading
+import configparser
+import os
 
 class FTPServerPlugin:
+    CONFIG_FILE = 'config.ini'  # The name of the config file
+
     def __init__(self, root):
         self.root = root
         self.server = None
         self.server_thread = None
         self.is_running = False
+
+        # Create the config parser
+        self.config = configparser.ConfigParser()
+
+        # Ensure config file and section exist
+        self.check_config_file()
 
         self.frame = tk.Frame(self.root)
         self.frame.pack(fill=tk.BOTH, expand=True)
@@ -32,6 +42,10 @@ class FTPServerPlugin:
         self.browse_button = tk.Button(self.frame, text="Browse", command=self.browse_directory)
         self.browse_button.grid(row=1, column=2, padx=10, pady=10)
 
+        # Load saved root directory if it exists
+        if self.config.has_option('FTP', 'root_dir'):
+            self.root_dir_entry.insert(0, self.config.get('FTP', 'root_dir'))
+
         self.start_button = tk.Button(self.frame, text="Start FTP Server", command=self.start_server)
         self.start_button.grid(row=2, column=0, columnspan=2, pady=10)
 
@@ -39,11 +53,41 @@ class FTPServerPlugin:
         self.stop_button.grid(row=2, column=2, padx=10, pady=10)
         self.stop_button.config(state=tk.DISABLED)
 
+    def check_config_file(self):
+        """Ensure that the config file exists and contains the necessary FTP section."""
+        if not os.path.exists(self.CONFIG_FILE):
+            # Create the config file if it doesn't exist
+            with open(self.CONFIG_FILE, 'w') as configfile:
+                self.config.add_section('FTP')
+                self.config.set('FTP', 'root_dir', '')
+                self.config.write(configfile)
+        else:
+            # Read existing config file
+            self.config.read(self.CONFIG_FILE)
+
+            # Check if 'FTP' section exists, if not, add it
+            if not self.config.has_section('FTP'):
+                self.config.add_section('FTP')
+
+            # If 'root_dir' doesn't exist, create an empty entry for it
+            if not self.config.has_option('FTP', 'root_dir'):
+                self.config.set('FTP', 'root_dir', '')
+
+            # Write any changes to the config file
+            with open(self.CONFIG_FILE, 'w') as configfile:
+                self.config.write(configfile)
+
     def browse_directory(self):
+        """Open a directory selection dialog and save the selected directory to the config file."""
         directory = filedialog.askdirectory()
         if directory:
             self.root_dir_entry.delete(0, tk.END)
             self.root_dir_entry.insert(0, directory)
+
+            # Save the selected directory to the config file
+            self.config.set('FTP', 'root_dir', directory)
+            with open(self.CONFIG_FILE, 'w') as configfile:
+                self.config.write(configfile)
 
     def start_server(self):
         if self.is_running:
