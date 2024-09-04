@@ -10,15 +10,17 @@ from tkinter import Menu
 from tkinter import ttk
 from modules.plugin_manager import PluginManager
 from modules.system_log_gui import SystemLogGUI
-from modules.network_monitor import NetworkMonitor 
+from modules.network_monitor import NetworkMonitor
 from modules.device_manager_gui import DeviceManagerGUI
 from modules.gui_utils import GUIUtils
 from modules.refresh_clock import RefreshClock
+from plugins.ssh_client_plugin import init_plugin as init_ssh_client_plugin  # Import your plugin
 
 class ApplicationGUI:
-    def __init__(self, root, app):
+    def __init__(self, root, app, db_ops):
         self.root = root
         self.app = app
+        self.db_ops = db_ops  # Store db_ops for plugin access
         self.update_queue = queue.Queue()
         self.device_manager_gui = DeviceManagerGUI(app)
         self.network_monitor = NetworkMonitor(app, self.update_queue, self.device_manager_gui)
@@ -57,6 +59,9 @@ class ApplicationGUI:
         # Dynamically load and initialize plugins using PluginManager
         self.plugin_manager = PluginManager('plugins')
         self.plugin_manager.load_plugins(self)
+
+        # Initialize the SSH Client Plugin and pass db_ops to it
+        init_ssh_client_plugin(self)
 
         # Set up the processing of the UI task queue after GUI initialization
         self.root.after(100, self.device_manager_gui.process_ui_queue)
