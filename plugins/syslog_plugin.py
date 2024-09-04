@@ -122,22 +122,33 @@ class SysLogPlugin:
         scrollbar.pack(side=RIGHT, fill=Y)
         log_text.pack(fill="both", expand=True)
 
+        def apply_filters_in_background():
+            """Run the filter operation in a background thread."""
+            threading.Thread(target=apply_filters).start()
+
         def apply_filters():
+            """Fetch and display logs, running in a background thread."""
             logs = self.fetch_logs(
                 host=host_entry.get(),
                 severity=severity_entry.get(),
                 message=message_entry.get()
             )
+
+            # Update the log_text in the main thread using after()
+            self.app.root.after(0, update_log_display, logs)
+
+        def update_log_display(logs):
+            """Update the Text widget with the fetched logs."""
             log_text.delete(1.0, END)  # Clear the current logs
             for log in logs:
                 log_text.insert(END, f"{log[1]} - {log[2]} - {log[3]} - {log[4]}\n")
 
         # Filter button
-        filter_button = Button(filter_frame, text="Apply Filters", command=apply_filters)
+        filter_button = Button(filter_frame, text="Apply Filters", command=apply_filters_in_background)
         filter_button.pack(side=tk.LEFT, padx=10)
 
         # Load initial logs without filters
-        apply_filters()
+        apply_filters_in_background()
 
     def fetch_logs(self, host=None, severity=None, message=None):
         """Fetch logs from the SQLite database with optional filtering."""
