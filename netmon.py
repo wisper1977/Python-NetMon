@@ -48,8 +48,8 @@ class NetworkMonitorApp:
         setup_environment(self.logger)  # Run setup with logging
         self.logger.log("INFO", "Application started")
 
-        # Initialize the GUI
-        self.gui = ApplicationGUI(self.root, self)
+        # Initialize the GUI and pass db_ops
+        self.gui = ApplicationGUI(self.root, self, self.db_ops)
 
     def load_config(self):
         config = configparser.ConfigParser()
