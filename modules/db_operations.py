@@ -1,3 +1,8 @@
+# Network Monitor App
+# db_operations.py
+# version: 1.2
+# description: Manages database operations for the Network Monitor application, including CRUD operations for devices, logs, and other relevant data.
+
 import sqlite3
 import threading
 import csv
