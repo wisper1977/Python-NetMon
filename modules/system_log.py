@@ -1,8 +1,3 @@
-# Network Monitor App
-# system_log.py
-# version: 1.2
-# description: Manages the logging of system events and errors to a database, allowing for retrieval and display in the GUI.
-
 from modules.db_operations import DatabaseOperations
 from datetime import datetime, timezone
 

@@ -13,7 +13,8 @@ from modules.system_log_gui import SystemLogGUI
 from modules.network_monitor import NetworkMonitor 
 from modules.device_manager_gui import DeviceManagerGUI
 from modules.gui_utils import GUIUtils
-from modules.refresh_clock import RefreshClock  # Import the RefreshClock class
+from modules.refresh_clock import RefreshClock
+from modules.update_program import ProgramUpdater  # Import the RefreshClock class
 
 class ApplicationGUI:
     def __init__(self, root, app):
@@ -91,6 +92,7 @@ class ApplicationGUI:
         help_menu = Menu(menubar, tearoff=0)
         help_menu.add_command(label="Online Help", accelerator="Ctrl+H", command=lambda: GUIUtils.open_online_help(self.help_url))
         help_menu.add_command(label="About Python NetMon", command=lambda: GUIUtils.show_about(self.version, self.developer))
+        help_menu.add_command(label="Check for Updates", command=lambda: ProgramUpdater.check_for_update())
         menubar.add_cascade(label="Help", menu=help_menu)
 
         self.root.config(menu=menubar)
