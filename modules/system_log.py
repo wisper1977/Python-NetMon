@@ -1,3 +1,8 @@
+# Network Monitor App
+# syslog.py
+# version: 1.2
+# description: Manages the logging of system events and errors to a database, allowing for retrieval and display in the GUI. Supports logging with both local and Zulu (UTC) time formats.
+
 from modules.db_operations import DatabaseOperations
 from datetime import datetime, timezone
 
