@@ -149,7 +149,7 @@ Please check out the [Wiki](https://github.com/wisper1977/Python-NetMon/wiki) to
 - Added firewall configuration steps for both Windows and Linux to allow Syslog traffic on UDP port 514.
 
 ## Known Bugs
-- Need to update the wiki.
+- Performance issue, program locking up.
   
 ## Future Plans
 - Detailed Device Views: Implement functionality for users to click on a device in the list and display detailed information or statistics in a separate dialog or pane.
