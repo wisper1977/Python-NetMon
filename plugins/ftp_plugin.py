@@ -6,7 +6,7 @@
 import tkinter as tk
 from tkinter import messagebox, filedialog
 from pyftpdlib.authorizers import DummyAuthorizer
-from pyftpdlib.handlers import FTPHandler  # Use only FTPHandler for now
+from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
 from modules.gui_utils import GUIUtils
 import threading
@@ -15,12 +15,12 @@ import os
 
 class FTPServerPlugin:
     CONFIG_FILE = 'config.ini'  # The name of the config file
+    server = None  # Class-level server to keep it independent of the window
+    is_running = False  # Class-level state to track server running status
+    server_thread = None  # Class-level thread to handle server in background
 
     def __init__(self, root):
         self.root = root
-        self.server = None
-        self.server_thread = None
-        self.is_running = False
 
         # Create the config parser
         self.config = configparser.ConfigParser()
@@ -59,7 +59,12 @@ class FTPServerPlugin:
 
         self.stop_button = tk.Button(self.frame, text="Stop FTP Server", command=self.stop_server)
         self.stop_button.grid(row=4, column=2, padx=10, pady=10)
-        self.stop_button.config(state=tk.DISABLED)
+
+        # Disable stop button initially if the server is not running
+        if not FTPServerPlugin.is_running:
+            self.stop_button.config(state=tk.DISABLED)
+        else:
+            self.start_button.config(state=tk.DISABLED)
 
     def check_config_file(self):
         """Ensure that the config file exists and contains the necessary FTP section."""
@@ -98,7 +103,7 @@ class FTPServerPlugin:
                 self.config.write(configfile)
 
     def start_server(self):
-        if self.is_running:
+        if FTPServerPlugin.is_running:
             messagebox.showinfo("FTP Server", "Server is already running.")
             return
 
@@ -117,33 +122,33 @@ class FTPServerPlugin:
 
         # Set up the FTP server with user authentication
         authorizer = DummyAuthorizer()
-        authorizer.add_user(username, password, root_dir, perm="elradfmw")  # Change permissions as needed
+        authorizer.add_user(username, password, root_dir, perm="elradfmw")
 
         handler = FTPHandler
         handler.authorizer = authorizer
 
-        self.server = FTPServer(("0.0.0.0", port), handler)
+        FTPServerPlugin.server = FTPServer(("0.0.0.0", port), handler)
 
         # Start the server in a separate thread to avoid freezing the GUI
-        self.server_thread = threading.Thread(target=self.run_server, daemon=True)
-        self.server_thread.start()
+        FTPServerPlugin.server_thread = threading.Thread(target=self.run_server, daemon=True)
+        FTPServerPlugin.server_thread.start()
 
         self.start_button.config(state=tk.DISABLED)
         self.stop_button.config(state=tk.NORMAL)
 
-        self.is_running = True
+        FTPServerPlugin.is_running = True
         messagebox.showinfo("FTP Server", f"FTP server started on port {port}")
 
     def run_server(self):
         """Run the FTP server in a separate thread."""
-        if self.server:
-            self.server.serve_forever()
+        if FTPServerPlugin.server:
+            FTPServerPlugin.server.serve_forever()
 
     def stop_server(self):
-        if self.server and self.is_running:
-            self.server.close_all()
-            self.is_running = False
-            self.server = None
+        if FTPServerPlugin.server and FTPServerPlugin.is_running:
+            FTPServerPlugin.server.close_all()
+            FTPServerPlugin.is_running = False
+            FTPServerPlugin.server = None
             self.start_button.config(state=tk.NORMAL)
             self.stop_button.config(state=tk.DISABLED)
             messagebox.showinfo("FTP Server", "FTP server stopped")
