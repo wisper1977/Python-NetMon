@@ -1,7 +1,30 @@
 # Network Monitor App
-# speedtest_plugin.py
+# speed_test_plugin.py
 # version: 1.2
-# description: Plugin that performs speed tests on the network and displays the results within the Network Monitor application.
+# description: Plugin that integrates network speed testing functionality into the Network Monitor application.
+#              It allows users to run real-time internet speed tests (download, upload, ping) from within the app.
+#
+# Features:
+# - Measures the current internet speed, including download and upload rates, as well as ping latency.
+# - Displays speed test results in a graphical user interface (GUI) with real-time updates.
+# - Provides the ability to log speed test results to the application's database for historical analysis.
+#
+# Configuration:
+# - Uses an external speed test API (e.g., speedtest-cli) to perform the tests.
+# - Results can be stored in the 'speed_tests' table within the application database.
+#
+# Requirements:
+# - speedtest-cli: Command-line interface for testing internet bandwidth.
+# - tkinter: For the graphical user interface (GUI).
+# - sqlite3: For storing speed test results.
+# 
+# Usage:
+# - The plugin is integrated into the Network Monitor application and can be accessed via the "Speed Test" tool.
+# - The results are displayed in the GUI and optionally logged for future reference.
+#
+# Notes:
+# - Internet access is required to perform speed tests.
+# - The accuracy of results may depend on external factors such as server availability and network conditions.
 
 import threading
 import tkinter as tk
