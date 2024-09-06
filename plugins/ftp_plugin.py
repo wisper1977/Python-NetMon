@@ -1,7 +1,23 @@
 # Network Monitor App
 # ftp_plugin.py
-# version: 1.2
-# description: Plugin that provides FTP server functionality, allowing users to start and stop an FTP server through the Network Monitor application.
+# version: 1.2.0.1
+# description: Plugin that provides FTP server functionality, allowing users to start and stop an FTP server 
+#              through the Network Monitor application. This plugin supports user authentication and a browsable
+#              root directory with configurable options for username, password, and port.
+
+# Features:
+# - Start and stop an FTP server from the Network Monitor GUI.
+# - User authentication with configurable username and password.
+# - Browsable root directory with the ability to save the path to a config file.
+# - Server runs in a separate thread to ensure the GUI remains responsive.
+# 
+# Configuration:
+# - Settings such as root directory, username, and port are stored in a config.ini file.
+# - Ensure that the config.ini file is located in the same directory as the application.
+#
+# Requirements:
+# - pyftpdlib: For handling the FTP server functionality.
+# - tkinter: For the graphical user interface (GUI).
 
 import tkinter as tk
 from tkinter import messagebox, filedialog
@@ -14,7 +30,7 @@ import configparser
 import os
 
 class FTPServerPlugin:
-    CONFIG_FILE = 'config.ini'  # The name of the config file
+    CONFIG_FILE = 'config/config.ini'  # The name of the config file
     server = None  # Class-level server to keep it independent of the window
     is_running = False  # Class-level state to track server running status
     server_thread = None  # Class-level thread to handle server in background

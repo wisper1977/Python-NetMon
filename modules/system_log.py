@@ -1,3 +1,8 @@
+# Network Monitor App
+# syslog.py
+# version: 1.2
+# description: Manages the logging of system events and errors to a database, allowing for retrieval and display in the GUI. Supports logging with both local and Zulu (UTC) time formats.
+
 from modules.db_operations import DatabaseOperations
 from datetime import datetime, timezone
 
@@ -21,9 +26,15 @@ class SystemLog:
         )
 
     def get_logs(self):
-        conn, cursor = self.db_ops.create_connection()  # Use the method from DatabaseOperations to create connection
+        # Create the connection and fetch logs
+        conn = self.db_ops.create_connection()  # Get the connection object
+        cursor = conn.cursor()  # Create a cursor from the connection
+        
         cursor.execute("SELECT log_message, timestamp FROM program_logs ORDER BY timestamp DESC")
         logs = cursor.fetchall()  # Load logs into memory
+        
+        # Clean up by closing the cursor and connection
         cursor.close()
-        conn.close()  # Close the connection immediately after fetching logs
+        conn.close()
+        
         return logs

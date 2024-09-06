@@ -1,7 +1,28 @@
 # Network Monitor App
 # syslog_plugin.py
 # version: 1.2
-# description: Plugin that integrates with a syslog server, allowing the Network Monitor application to collect and display syslog messages.
+# description: Plugin that integrates with a Syslog server, allowing the Network Monitor application to collect,
+#              store, and display Syslog messages. Provides real-time syslog message collection and a GUI for
+#              viewing, filtering, and managing the logs.
+#
+# Features:
+# - Collects syslog messages via UDP on port 514 (default Syslog port).
+# - Stores messages in an SQLite database with fields for timestamp, host, severity, and message.
+# - Provides a GUI to filter logs by host, severity, and message content.
+# - Runs the Syslog server in a separate thread to maintain UI responsiveness.
+# 
+# Configuration:
+# - Syslog messages are stored in the 'syslog' table within the main application database.
+# - Ensure the database is correctly initialized before using the plugin.
+#
+# Requirements:
+# - sqlite3: For storing syslog messages.
+# - tkinter: For the graphical user interface (GUI).
+# - socket: For receiving syslog messages over the network.
+# 
+# Usage:
+# - The plugin is integrated into the Network Monitor application and can be accessed via the "SysLog Viewer" tool.
+
 
 import threading
 import socket

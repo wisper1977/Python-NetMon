@@ -1,6 +1,6 @@
 # Network Monitor App
 # db_operations.py
-# version: 1.2
+# version: 1.2.0.1
 # description: Manages database operations for the Network Monitor application, including CRUD operations for devices, logs, and other relevant data.
 
 import sqlite3
@@ -18,14 +18,15 @@ class DatabaseOperations:
     def create_connection(self):
         conn = sqlite3.connect(self.db_path, timeout=10)
         conn.execute('PRAGMA journal_mode=WAL;')  # Enable write-ahead logging for better concurrency
-        return conn, conn.cursor()
+        return conn  # Only return the connection object
 
     def execute_query(self, query, params=None, retry_count=5, delay=0.5):
         """Execute a query with retry logic in case the database is locked."""
         for attempt in range(retry_count):
             with self.lock:
-                conn, cursor = self.create_connection()
+                conn = self.create_connection()  # Get only the connection object
                 try:
+                    cursor = conn.cursor()  # Create the cursor from the connection
                     if params:
                         cursor.execute(query, params)
                     else:

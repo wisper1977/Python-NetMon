@@ -1,4 +1,4 @@
-# Python NetMon - 1.2
+# Python NetMon - 1.2.0.1
 
 Welcome to the Python NetMon repository! 
 
@@ -82,6 +82,11 @@ If using on Windows you will have to `Run As Administrator`
 Please check out the [Wiki](https://github.com/wisper1977/Python-NetMon/wiki) to see how to use Features.
 
 ## Version History
+
+### v1.2 - Performance Enhancing
+**Release Date:** TBD
+- Fixed issues with the database locking
+- Fixed issues with a delay to acknowledging devices
 
 ### v1.2 - SNMP, SQLLite, Plugins
 **Release Date:** 9/2/2024

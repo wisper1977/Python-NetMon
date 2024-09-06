@@ -1,6 +1,6 @@
 # Network Monitor App
 # network_monitor.py
-# version: 1.2
+# version: 1.2.0.1
 # description: Handles the monitoring of network devices, including performing ping and SNMP checks and updating device status in the GUI.
 
 import threading
@@ -25,6 +25,10 @@ class NetworkMonitor:
         self.acknowledged_devices = set()
 
         self.refresh_interval = self.settings_manager.config.getint('Network', 'refreshinterval') * 1000
+
+        # Create a shared asyncio event loop for SNMP operations
+        self.loop = asyncio.new_event_loop()
+        threading.Thread(target=self.loop.run_forever, daemon=True).start()
 
     def monitor_devices(self):
         devices = self.device_manager_gui.device_manager.get_all_devices()
@@ -52,8 +56,16 @@ class NetworkMonitor:
         ping_status = "Failed"
         overall_status = last_status  # Default to last status
 
-        # Run SNMP and ping checks
-        snmp_result = asyncio.run(self.snmp.snmp_get(ip_address, '1.3.6.1.2.1.1.1.0'))
+        # Use asyncio.run_coroutine_threadsafe for SNMP checks in a thread-safe manner
+        snmp_future = asyncio.run_coroutine_threadsafe(self.snmp.snmp_get(ip_address, '1.3.6.1.2.1.1.1.0'), self.loop)
+
+        try:
+            snmp_result = snmp_future.result(timeout=10)  # Set a timeout for the SNMP request
+        except Exception as e:
+            self.logger.log("ERROR", f"SNMP check failed for {name} ({ip_address}) with error: {e}")
+            snmp_result = None
+
+        # Determine SNMP status
         if snmp_result:
             snmp_status = "Success"
             self.logger.log("INFO", f"SNMP check succeeded for {name} ({ip_address})")
