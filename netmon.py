@@ -2,6 +2,35 @@
 # netmon.py
 # version: 1.2
 # description: Entry point for the Network Monitor application. Initializes and runs the main application loop.
+#
+# Features:
+# - Loads configuration settings from 'config/config.ini', including database paths and network settings.
+# - Initializes database operations, system logging, and network monitoring services (ping, SNMP).
+# - Sets up the main graphical user interface (GUI) to interact with the user.
+# - Logs application events such as startup, shutdown, and key operations to the system log.
+#
+# Configuration:
+# - Requires a configuration file located at 'config/config.ini' with database path, SNMP, and ping settings.
+# - Uses a SQLite database for storing device statuses, logs, and network monitoring data.
+#
+# Requirements:
+# - tkinter: For the main application GUI.
+# - sqlite3: For database operations.
+# - configparser: For reading configuration files.
+# - Custom modules:
+#     - setup_env: Initializes the environment and prepares logging.
+#     - db_operations: Handles SQLite database operations.
+#     - application_gui: Manages the GUI components.
+#     - system_log: Logs events and errors in the system.
+#     - net_ops_ping: Executes ping operations for network monitoring.
+#     - net_ops_snmp: Handles SNMP queries for network devices.
+#     - settings_manager: Manages application settings.
+#     - gui_utils: Utility functions for the GUI.
+#
+# Usage:
+# - The script is the main entry point for the Network Monitor application.
+# - Simply run this script to launch the full application with its network monitoring and GUI components.
+
 
 import configparser
 import os
