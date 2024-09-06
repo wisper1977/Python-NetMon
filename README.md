@@ -84,7 +84,7 @@ Please check out the [Wiki](https://github.com/wisper1977/Python-NetMon/wiki) to
 ## Version History
 
 ### v1.2 - Performance Enhancing
-**Release Date:** TBD
+**Release Date:** 9/8/2024
 - Fixed issues with the database locking
 - Fixed issues with a delay to acknowledging devices
 
