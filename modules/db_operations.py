@@ -1,6 +1,6 @@
 # Network Monitor App
 # db_operations.py
-# version: 1.2
+# version: 1.2.0.1
 # description: Manages database operations for the Network Monitor application, including CRUD operations for devices, logs, and other relevant data.
 
 import sqlite3
@@ -18,39 +18,38 @@ class DatabaseOperations:
     def create_connection(self):
         conn = sqlite3.connect(self.db_path, timeout=10)
         conn.execute('PRAGMA journal_mode=WAL;')  # Enable write-ahead logging for better concurrency
-        return conn
+        return conn  # Only return the connection object
 
     def execute_query(self, query, params=None, retry_count=5, delay=0.5):
         """Execute a query with retry logic in case the database is locked."""
         for attempt in range(retry_count):
-            try:
-                conn = self.create_connection()
-                cursor = conn.cursor()
-                if params:
-                    cursor.execute(query, params)
-                else:
-                    cursor.execute(query)
+            with self.lock:
+                conn = self.create_connection()  # Get only the connection object
+                try:
+                    cursor = conn.cursor()  # Create the cursor from the connection
+                    if params:
+                        cursor.execute(query, params)
+                    else:
+                        cursor.execute(query)
 
-                if query.strip().upper().startswith("SELECT"):
-                    result = cursor.fetchall()
-                    return result
+                    # For SELECT queries, fetch results
+                    if query.strip().upper().startswith("SELECT"):
+                        result = cursor.fetchall()
+                        return result
 
-                conn.commit()
-                break  # Exit loop if successful
-            except sqlite3.OperationalError as e:
-                if "database is locked" in str(e) and attempt < retry_count - 1:
-                    print(f"Database is locked, retrying in {delay} seconds...")
-                    time.sleep(delay)  # Wait and retry
-                else:
-                    raise e  # Rethrow if retries are exhausted or another error occurred
-            finally:
-                cursor.close()
-                conn.close()
-
-    def execute_write_query(self, query, params=None):
-        """Execute write queries with thread locking for safety."""
-        with self.lock:
-            self.execute_query(query, params)
+                    # Commit for non-SELECT queries
+                    conn.commit()
+                    break  # Exit loop if successful
+                except sqlite3.OperationalError as e:
+                    if "database is locked" in str(e) and attempt < retry_count - 1:
+                        print(f"Database is locked, retrying in {delay} seconds...")
+                        time.sleep(delay)  # Wait and retry
+                    else:
+                        conn.rollback()
+                        raise e  # Rethrow if retries are exhausted or another error occurred
+                finally:
+                    cursor.close()
+                    conn.close()
 
     def create_tables(self):
         query1 = '''
@@ -83,7 +82,6 @@ class DatabaseOperations:
                 timestamp TIMESTAMP
             )
         '''
-        # We can avoid locking for these table creation queries since they only happen at startup
         self.execute_query(query1)
         self.execute_query(query2)
         self.execute_query(query3)
@@ -94,25 +92,25 @@ class DatabaseOperations:
         result = self.execute_query(query)
         if result[0][0] == 0:
             # Insert the Google device if the table is empty
-            self.execute_write_query(
+            self.execute_query(
                 "INSERT INTO devices (name, ip_address, location, type) VALUES (?, ?, ?, ?)",
                 ('Google', '8.8.8.8', 'Internet', 'DNS')
             )
 
     def get_all_devices(self):
         query = "SELECT * FROM devices"
-        return self.execute_query(query)  # SELECT queries don't require locking
+        return self.execute_query(query)
 
     def update_status(self, device_id, snmp_status, ping_status, overall_status):
         query = '''
             UPDATE devices SET snmp_status = ?, ping_status = ?, last_status = ?, last_checked = datetime('now')
             WHERE id = ?
         '''
-        self.execute_write_query(query, (snmp_status, ping_status, overall_status, device_id))
+        self.execute_query(query, (snmp_status, ping_status, overall_status, device_id))
 
     def log_event(self, message):
         query = "INSERT INTO program_logs (log_message, timestamp) VALUES (?, datetime('now'))"
-        self.execute_write_query(query, (message,))
+        self.execute_query(query, (message,))
 
     def import_devices(self, file_path):
         """Imports devices from a CSV file."""
@@ -126,7 +124,7 @@ class DatabaseOperations:
 
                 if name and ip_address:
                     try:
-                        self.execute_write_query('''
+                        self.execute_query('''
                             INSERT INTO devices (name, ip_address, location, type) VALUES (?, ?, ?, ?)
                         ''', (name, ip_address, location, device_type))
                     except sqlite3.IntegrityError as e:

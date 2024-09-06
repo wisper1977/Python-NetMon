@@ -1,6 +1,6 @@
 # Network Monitor App
 # application_gui.py
-# version: 1.2
+# version: 1.2.0.1
 # description: Contains the main GUI logic for the Network Monitor application, including the setup of menus, the device treeview, and the refresh clock.
 
 import pygame
@@ -14,7 +14,6 @@ from modules.network_monitor import NetworkMonitor
 from modules.device_manager_gui import DeviceManagerGUI
 from modules.gui_utils import GUIUtils
 from modules.refresh_clock import RefreshClock
-from plugins.ssh_client_plugin import init_plugin as init_ssh_client_plugin  # Import your plugin
 
 class ApplicationGUI:
     def __init__(self, root, app, db_ops):
@@ -58,10 +57,7 @@ class ApplicationGUI:
 
         # Dynamically load and initialize plugins using PluginManager
         self.plugin_manager = PluginManager('plugins')
-        self.plugin_manager.load_plugins(self)
-
-        # Initialize the SSH Client Plugin and pass db_ops to it
-        init_ssh_client_plugin(self)
+        self.plugin_manager.load_plugins(self)  # Load all plugins dynamically
 
         # Set up the processing of the UI task queue after GUI initialization
         self.root.after(100, self.device_manager_gui.process_ui_queue)
